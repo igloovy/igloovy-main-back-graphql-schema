@@ -1,0 +1,38 @@
+extend type Query{
+    # [ClientAndAbove]
+    self: Self!
+}
+extend type Mutation {
+    # [ClientAndAbove]
+    selfMutation: SelfMutation!
+    # [OnlyAnon]
+    registerWithEmailAndPassword(email: Email!, password: String!): SelfMutation!
+}
+
+
+interface SelfData{
+    userId: Long!
+    displayName: String!
+    email: Email!
+}
+
+type Self implements SelfData{
+    userId: Long!
+    displayName: String!
+    email: Email!
+}
+
+type SelfMutation implements SelfData{
+    userId: Long!
+    displayName: String!
+    email: Email!
+
+    setPassword(password: String!): SelfMutation!
+    setDisplayName(displayName: String!): SelfMutation!
+}
+
+enum Authority{
+    ROLE_ANONYMOUS
+    ROLE_CLIENT,
+    ROLE_ADMIN
+}

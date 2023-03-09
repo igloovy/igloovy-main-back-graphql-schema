@@ -1,0 +1,12 @@
+type Query{
+    # [EveryOne]
+    isCurrentlyAuthenticated: Boolean!
+    # [EveryOne]
+    authority: Authority!
+}
+type Mutation{
+    # [OnlyAnon]
+    loginWithEmailAndPassword(email: Email!, password: String!): Void
+    # [ClientAndAbove]
+    logOut: Void
+}
