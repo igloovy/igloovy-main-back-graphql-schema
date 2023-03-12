@@ -6,7 +6,7 @@ extend type Mutation {
     # [ClientAndAbove]
     selfMutation: SelfMutation!
     # [OnlyAnon]
-    registerWithEmailAndPassword(email: Email!, password: String!): SelfMutation!
+    registerWithEmailAndPassword(email: Email!, password: String!, displayName: String): SelfMutation!
 }
 
 
@@ -14,22 +14,29 @@ interface SelfData{
     userId: Long!
     displayName: String!
     email: Email!
+    subscribedCategories: [Category!]!
 }
 
 type Self implements SelfData{
     userId: Long!
     displayName: String!
     email: Email!
+    subscribedCategories: [Category!]!
 }
 
 type SelfMutation implements SelfData{
     userId: Long!
     displayName: String!
     email: Email!
+    subscribedCategories: [Category!]!
 
     setPassword(password: String!): SelfMutation!
     setDisplayName(displayName: String!): SelfMutation!
+
+    addSubscribedCategory(categoryId: Long!): SelfMutation!
+    removeSubscribedCategory(categoryId: Long!): SelfMutation!
 }
+
 
 enum Authority{
     ROLE_ANONYMOUS

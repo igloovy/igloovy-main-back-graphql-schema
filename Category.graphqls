@@ -1,0 +1,13 @@
+type Category{
+    categoryId: Long!
+    name: String!
+    subCategories: [Category!]!
+    subCategoryOf: Category
+}
+
+extend type Query {
+    # [ClientAndAbove] if null is provided a handful of most important categories are returned
+    # if centeredAroundCategoryId is provided only sub categories of given id is returned
+    rootCategories: [Category!]!
+    categoryById(categoryId: Long!) : Category!
+}

@@ -1,0 +1,8 @@
+{
+  "0": "InternalException",
+  "1": "AccessDeniedException",
+  "2": "BadCredentialsException",
+  "3": "AlreadyExist",
+  "4": "MalformedDataType",
+  "5": "NotFound"
+}
