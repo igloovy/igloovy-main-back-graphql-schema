@@ -9,25 +9,31 @@ extend type Mutation {
     registerWithEmailAndPassword(email: Email!, password: String!, displayName: String): SelfMutation!
 }
 
+interface PublicUserDate{
+    userId: Long!
+    displayName: String!
+    createdDate: Date!
+}
 
 interface SelfData{
-    userId: Long!
-    displayName: String!
     email: Email!
     subscribedCategories: [Category!]!
 }
 
-type Self implements SelfData{
+type Self implements SelfData & PublicUserDate{
     userId: Long!
     displayName: String!
     email: Email!
     subscribedCategories: [Category!]!
+    createdDate: Date!
 }
 
-type SelfMutation implements SelfData{
+type SelfMutation implements SelfData & PublicUserDate{
     userId: Long!
     displayName: String!
     email: Email!
+    createdDate: Date!
+
     subscribedCategories: [Category!]!
 
     setPassword(password: String!): SelfMutation!
@@ -42,4 +48,15 @@ enum Authority{
     ROLE_ANONYMOUS
     ROLE_CLIENT,
     ROLE_ADMIN
+}
+
+type User implements PublicUserDate{
+    userId: Long!
+    displayName: String!
+    createdDate: Date!
+}
+
+interface ImmutableUserItem{
+    createdBy: User!
+    createdDate: Date!
 }

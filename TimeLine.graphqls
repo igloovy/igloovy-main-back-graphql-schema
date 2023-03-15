@@ -1,0 +1,75 @@
+extend type Query{
+
+    # [ClientAndAbove] given last id of current page, loads size more of posts
+    explorePosts(lastId: Long , size: Int!): [Post!]!
+
+    # [ClientAndAbove]
+    getReactableById(reactableId: Long!): Reactable!
+    # [ClientAndAbove]
+    getPostBydId(postId: Long!): Post!
+    # [ClientAndAbove]
+    getCommentById(commentId: Long!): Reactable!
+
+    # [ClientAndAbove]
+    getPostsOfUser(userId: Long!  page: Page!): PostPage!
+    # [ClientAndAbove]
+    getCommentsOfUser(userId: Long!  page: Page!): CommentPage!
+}
+
+extend type Mutation {
+    # [ClientAndAbove]
+    submitPost(submittable: Submittable!): Post!
+    # [ClientAndAbove]
+    submitComment(submittable: Submittable! reactableId: Long!): Comment!
+}
+
+input Submittable {
+    text: String!
+    files: [UUID!]!
+}
+
+# any thing which can be reacted on
+interface Reactable implements ImmutableUserItem{
+    reactableId: Long!
+    createdBy: User!
+    createdDate: Date!
+    emojis: [Emoji!]!
+    reactions: [Comment!]!
+}
+
+interface Multipart{
+    text: String!
+    files: [File!]!
+}
+
+
+type Post implements Reactable & Multipart & ImmutableUserItem{
+    reactableId: Long!
+    createdBy: User!
+    text: String!
+    files: [File!]!
+    createdDate: Date!
+    reactions: [Comment!]!
+    emojis: [Emoji!]!
+
+}
+
+
+type Comment implements Reactable & Multipart & ImmutableUserItem{
+
+    reactableId: Long!
+    createdBy: User!
+    text: String!
+    files: [File!]!
+    createdDate: Date!
+    emojis: [Emoji!]!
+    reactions: [Comment!]!
+
+    parent: Reactable!
+}
+
+type Emoji{
+    emojiId: Long!
+    unicode: String!
+    count: Int!
+}

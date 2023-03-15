@@ -1,0 +1,40 @@
+extend type Mutation {
+    # [ClientAndAbove] creates just a file entry to be used by uploader
+    createFileEntry(fileName: String!, fileExtension: String!, fileType: FileType!): File!
+}
+
+extend type Query {
+    # [ClientAndAbove] returns file associated with
+    getFileById(fileId: UUID!): File!
+}
+
+type File implements ImmutableUserItem{
+
+    fileId: UUID!
+
+    fileName: String!
+    fileExtension: String!
+    fileSize: Int
+
+    fileType: FileType!
+    fileState: FileState!
+
+    createdBy: User!
+    createdDate: Date!
+
+    downloadUrl: URL!
+    uploadUrl: URL!
+
+}
+
+enum FileType{
+    DOCUMENT,
+    IMAGE,
+    VIDEO,
+    GENERIC
+}
+enum FileState{
+    JUST_CREATED,
+    UPLOADED,
+    ARCHIVED
+}

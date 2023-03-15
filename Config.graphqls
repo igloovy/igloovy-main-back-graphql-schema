@@ -1,3 +1,6 @@
 scalar Long
 scalar Email
 scalar Void
+scalar UUID
+scalar URL
+scalar Date

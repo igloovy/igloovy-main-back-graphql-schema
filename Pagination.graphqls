@@ -1,0 +1,34 @@
+interface Pageable{
+
+    totalCount: Int!
+    pageCount: Int!
+
+    currentPage: Int!
+    currentSize: Int!
+}
+input Page{
+    page: Int! = 0
+    size: Int! = 10
+}
+
+type CommentPage implements Pageable{
+
+    totalCount: Int!
+    pageCount: Int!
+
+    currentPage: Int!
+    currentSize: Int!
+
+    comments: [Comment!]!
+}
+
+type PostPage implements Pageable{
+
+    totalCount: Int!
+    pageCount: Int!
+
+    currentPage: Int!
+    currentSize: Int!
+
+    posts: [Post!]!
+}
