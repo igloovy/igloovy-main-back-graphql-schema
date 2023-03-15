@@ -1,6 +1,7 @@
 type Category{
     categoryId: Long!
     name: String!
+    path: String!
     subCategories: [Category!]!
     subCategoryOf: Category
 }
