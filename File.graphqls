@@ -23,8 +23,7 @@ type File implements ImmutableUserItem{
     createdBy: User!
     createdDate: Date!
 
-    downloadUrl: URL!
-    uploadUrl: URL!
+    ioUrl: URL!
     fileWithExtension: String!
 
 }
