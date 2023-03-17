@@ -1,6 +1,6 @@
 extend type Mutation {
     # [ClientAndAbove] creates just a file entry to be used by uploader
-    createFileEntry(fileName: String!, fileExtension: String!, fileType: FileType!): File!
+    createFileEntry(fileName: String!, fileExtension: String!, fileType: FileType!, fileMime: String!): File!
 }
 
 extend type Query {
@@ -14,7 +14,8 @@ type File implements ImmutableUserItem{
 
     fileName: String!
     fileExtension: String!
-    fileSize: Int
+    fileMime: String!
+    fileSize: Int!
 
     fileType: FileType!
     fileState: FileState!
@@ -24,6 +25,7 @@ type File implements ImmutableUserItem{
 
     downloadUrl: URL!
     uploadUrl: URL!
+    fileWithExtension: String!
 
 }
 
