@@ -1,26 +1,37 @@
 extend type Query{
 
-    # [ClientAndAbove] given last id of current page, loads size more of posts
+    # [ClientAndAbove] given last id of current page, loads $size more of posts
     explorePosts(lastId: Long , size: Int!): [Post!]!
 
-    # [ClientAndAbove]
+    # [ClientAndAbove] given $reactableId returns respective Reactable, throws NotFound
     getReactableById(reactableId: Long!): Reactable!
-    # [ClientAndAbove]
-    getPostBydId(postId: Long!): Post!
-    # [ClientAndAbove]
-    getCommentById(commentId: Long!): Reactable!
 
-    # [ClientAndAbove]
+    # [ClientAndAbove] given $multipartReactableId returns respective MultipartReactable, throws NotFound
+    getMultipartReactableById(multipartReactableId: Long!): MultipartReactable!
+
+    # [ClientAndAbove] given $postId returns respective Post, throws NotFound
+    getPostBydId(postId: Long!): Post!
+
+    # [ClientAndAbove] given $commentId returns respective Comment, throws NotFound
+    getCommentById(commentId: Long!): Comment!
+
+    # [ClientAndAbove] given $userId and $page returns Posts of user paginated, throws NotFound (userId)
     getPostsOfUser(userId: Long!  page: Page!): PostPage!
-    # [ClientAndAbove]
+    # [ClientAndAbove] given $userId and $page returns Comments of user paginated, throws NotFound (userId)
     getCommentsOfUser(userId: Long!  page: Page!): CommentPage!
 }
 
 extend type Mutation {
-    # [ClientAndAbove]
+
+    # [ClientAndAbove] submit a post in general timeline
     submitPost(submittable: Submittable!): Post!
-    # [ClientAndAbove]
+
+    # [ClientAndAbove] submit a comment under given $reactable
     submitComment(submittable: Submittable! reactableId: Long!): Comment!
+
+    # [ClientAndAbove] react with an emoji on a multipartReactable
+    reactWithEmoji(emojiUnicode: String! multipartReactableId: Long!): MultipartReactable!
+
 }
 
 input Submittable {
@@ -33,8 +44,7 @@ interface Reactable implements ImmutableUserItem{
     reactableId: Long!
     createdBy: User!
     createdDate: Date!
-    emojis: [Emoji!]!
-    reactions: [Comment!]!
+    reactions: [Reactable!]!
     reactionsCount: Int!
 }
 
@@ -43,8 +53,23 @@ interface Multipart{
     files: [File!]!
 }
 
+interface MultipartReactable implements Reactable & Multipart & ImmutableUserItem{
 
-type Post implements Reactable & Multipart & ImmutableUserItem{
+    reactableId: Long!
+    createdBy: User!
+    createdDate: Date!
+    reactions: [MultipartReactable!]!
+    reactionsCount: Int!
+
+    text: String!
+    files: [File!]!
+
+    # [Computed]
+    emojis: [Emoji!]!
+}
+
+
+type Post implements MultipartReactable & Multipart & Reactable & ImmutableUserItem{
     reactableId: Long!
     createdBy: User!
     text: String!
@@ -53,12 +78,10 @@ type Post implements Reactable & Multipart & ImmutableUserItem{
     reactions: [Comment!]!
     reactionsCount: Int!
     emojis: [Emoji!]!
-
 }
 
 
-type Comment implements Reactable & Multipart & ImmutableUserItem{
-
+type Comment implements MultipartReactable & Multipart & Reactable & ImmutableUserItem{
     reactableId: Long!
     createdBy: User!
     text: String!
@@ -71,7 +94,7 @@ type Comment implements Reactable & Multipart & ImmutableUserItem{
 }
 
 type Emoji{
-    emojiId: Long!
     unicode: String!
-    count: Int!
+    # [Computed]
+    count: Long!
 }
