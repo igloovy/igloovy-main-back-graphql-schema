@@ -4,5 +4,6 @@
   "2": "BadCredentialsException",
   "3": "AlreadyExist",
   "4": "MalformedDataType",
-  "5": "NotFound"
+  "5": "NotFound",
+  "6": "UnExpectedAction"
 }
