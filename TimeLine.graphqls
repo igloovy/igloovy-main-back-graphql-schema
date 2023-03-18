@@ -10,7 +10,7 @@ extend type Query{
     getMultipartReactableById(multipartReactableId: Long!): MultipartReactable!
 
     # [ClientAndAbove] given $postId returns respective Post, throws NotFound
-    getPostBydId(postId: Long!): Post!
+    getPostById(postId: Long!): Post!
 
     # [ClientAndAbove] given $commentId returns respective Comment, throws NotFound
     getCommentById(commentId: Long!): Comment!
