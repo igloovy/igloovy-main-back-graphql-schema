@@ -13,6 +13,8 @@ interface PublicUserDate{
     userId: Long!
     displayName: String!
     createdDate: Date!
+    userTag: String!
+    avatarPicture: File
 }
 
 interface SelfData{
@@ -26,6 +28,9 @@ type Self implements SelfData & PublicUserDate{
     email: Email!
     subscribedCategories: [Category!]!
     createdDate: Date!
+    userTag: String!
+    avatarPicture: File
+
 }
 
 type SelfMutation implements SelfData & PublicUserDate{
@@ -33,6 +38,9 @@ type SelfMutation implements SelfData & PublicUserDate{
     displayName: String!
     email: Email!
     createdDate: Date!
+    userTag: String!
+    avatarPicture: File
+
 
     subscribedCategories: [Category!]!
 
@@ -41,6 +49,9 @@ type SelfMutation implements SelfData & PublicUserDate{
 
     addSubscribedCategory(categoryId: Long!): SelfMutation!
     removeSubscribedCategory(categoryId: Long!): SelfMutation!
+
+    setAvatar(fileId: UUID!): SelfMutation!
+    removeAvatar: SelfMutation!
 }
 
 
@@ -54,6 +65,8 @@ type User implements PublicUserDate{
     userId: Long!
     displayName: String!
     createdDate: Date!
+    userTag: String!
+    avatarPicture: File
 }
 
 interface ImmutableUserItem{
