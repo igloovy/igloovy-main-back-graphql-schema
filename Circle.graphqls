@@ -1,0 +1,57 @@
+type Circle{
+
+    banner: CircleBanner!
+
+    mode: CircleMode!
+    owners: [CircleUser!]!
+    exploreUsers(
+        prompt: String,
+        lastId: Long
+    ): [CircleUser!]!
+
+    operation: CircleOperation!
+}
+
+type CircleOperation {
+
+    addOwner(userId: Long!): Void
+    removeOwner(userId: Long!): Void
+
+    inviteUser(userId: Long!): Void
+    removeUser(userId: Long!): Void
+
+    join(inviteToken: String): Void
+    leave: Void
+
+    delete: Void
+}
+
+
+type CircleBanner{
+    name: String!
+    description: String!
+    bannerPicture: File!
+    logoPicture: File!
+    memberCount: Long!
+    ownerCount: Long!
+    createdDate: Date!
+}
+
+type CircleUser implements PublicUserData{
+    userId: Long!
+    displayName: String!
+    createdDate: Date!
+    userTag: String!
+    avatarPicture: File
+    ######
+    roles: [CircleRole!]!
+}
+
+type CircleRole {
+    name: String!
+}
+
+enum CircleMode{
+    PUBLIC
+    PRIVATE
+}

@@ -4,8 +4,9 @@ interface Pageable{
     pageCount: Int!
 
     currentPage: Int!
-    currentSize: Int!
+    currentCount: Int!
 }
+
 input Page{
     page: Int! = 0
     size: Int! = 10
@@ -17,7 +18,7 @@ type CommentPage implements Pageable{
     pageCount: Int!
 
     currentPage: Int!
-    currentSize: Int!
+    currentCount: Int!
 
     comments: [Comment!]!
 }
@@ -28,7 +29,7 @@ type PostPage implements Pageable{
     pageCount: Int!
 
     currentPage: Int!
-    currentSize: Int!
+    currentCount: Int!
 
     posts: [Post!]!
 }
