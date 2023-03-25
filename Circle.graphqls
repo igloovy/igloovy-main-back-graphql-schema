@@ -1,40 +1,44 @@
+extend type Query {
+    # [ClientAndAbove] given :circleId returns Circle associated with this Id
+    getCircleById(circleId: Long!): Circle!
+    # [ClientAndAbove] search and explore on circles. :searchParam is optional to narrow searching, paginate using :lastCircleId (seek loadMore)
+    exploreCircles(lastCircleId: Long! size: Int! searchParam: String): [Circle!]!
+}
+
+extend type Mutation {
+    # [ClientAndAbove] do operations (mutations) regarding a circle
+    mutateCircleById(circleId: Long!): CircleMutation!
+    # [ClientAndAbove] join circle by token, throws  {NotFound : "token doesn't exist", AlreadyExist : "already in Circle", BadState: "token is expired or you are not allowed to use this token"}
+    joinCircleByInvitationToken(token: UUID!): CircleMutation!
+    # [ClientAndAbove] create a circle
+    createCircle(circleName: String!): CircleMutation!
+}
+
 type Circle{
-
-    banner: CircleBanner!
-
-    mode: CircleMode!
+    circleId: Long!
+    information: CircleInformation!
+    exploreUsers(lastCircleUserId: Long! size: Int! searchParam: String): [CircleUser!]!
     owners: [CircleUser!]!
-    exploreUsers(
-        prompt: String,
-        lastId: Long
-    ): [CircleUser!]!
-
-    operation: CircleOperation!
+    subCircles: [SubCircle!]!
+    isCurrentUserOwnerOfThisCircle: Boolean!
 }
 
-type CircleOperation {
-
-    addOwner(userId: Long!): Void
-    removeOwner(userId: Long!): Void
-
-    inviteUser(userId: Long!): Void
-    removeUser(userId: Long!): Void
-
-    join(inviteToken: String): Void
-    leave: Void
-
-    delete: Void
+type SubCircle{
+    subCircleId: Long!
+    subCircleName: String!
+    parentCircle: Circle!
 }
 
+type CircleInformation{
 
-type CircleBanner{
     name: String!
-    description: String!
-    bannerPicture: File!
-    logoPicture: File!
-    memberCount: Long!
-    ownerCount: Long!
-    createdDate: Date!
+    description: String
+    websiteUrl: URL
+    logoPicture: File
+    bannerPicture: File
+
+    # --- calculated ---
+    numberOfUsers: Long!
 }
 
 type CircleUser implements PublicUserData{
@@ -43,15 +47,54 @@ type CircleUser implements PublicUserData{
     createdDate: Date!
     userTag: String!
     avatarPicture: File
-    ######
-    roles: [CircleRole!]!
+    # ---- extra ----
+#    roles: [CircleRole!]!
 }
 
-type CircleRole {
-    name: String!
+#type CircleRole{
+#    roleId: Long!
+#    roleName: String!
+#    roleColor: ColorCode!
+#}
+
+type CircleMutation {
+
+    # [ClientAndAbove] change name of this circle (permission required)
+    setName(name: String!): CircleMutation!
+    # [ClientAndAbove] change name of this circle (permission required)
+    setDescription(description: String): CircleMutation!
+    # [ClientAndAbove] change name of this circle (permission required)
+    setWebsiteUrl(websiteUrl: URL): CircleMutation!
+    # [ClientAndAbove] change name of this circle (permission required)
+    setLogoPicture(fileId: UUID): CircleMutation!
+    # [ClientAndAbove] change name of this circle (permission required)
+    setBannerPicture(fileId: UUID): CircleMutation!
+
+    # [ClientAndAbove] delete user by id of this circle
+    deleteCircleUser(circleUserId: Long!): CircleMutation!
+    # [ClientAndAbove] make circle user one of owners of this circle
+    addUserToOwners(circleUserId: Long!): CircleMutation!
+    # [ClientAndAbove] remove circle user from owners of this circle
+    removeUserToOwners(circleUserId: Long!): CircleMutation!
+
+
+    # [ClientAndAbove] change name of subCircle by id
+    changeSubCircleName(subCircleId: Long! subCircleNewName: String!): CircleMutation!
+    # [ClientAndAbove] delete subCircle by id
+    deleteSubCircleById(subCircleId: Long!): CircleMutation!
+
+
+    # [ClientAndAbove] create a subCircle
+    createSubCircle(subCircleName: String!): SubCircle!
+    # [ClientAndAbove] generate an invitationToken
+    generateInvitationToken: CircleInvitationToken!
+    # [ClientAndAbove] a terminal operation to get required data after one (or multiple chain) operation(s)
+    commit: Circle!
+    # [ClientAndAbove] delete the circle entirely
+    delete: Void
 }
 
-enum CircleMode{
-    PUBLIC
-    PRIVATE
+type CircleInvitationToken{
+    token: UUID!
+    expirationDate: Date!
 }

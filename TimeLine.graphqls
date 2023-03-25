@@ -1,7 +1,7 @@
 extend type Query{
 
-    # [ClientAndAbove] given last id of current page, loads $size more of posts
-    explorePosts(lastId: Long , size: Int!): [Post!]!
+    # [ClientAndAbove] given last id of current page, loads $size more of posts, if :subCircleId is provided it would only be execute against subCircle
+    explorePosts(lastId: Long , size: Int! subCircleId: Long @optional(narrows: "subCircle")): [Post!]!
 
     # [ClientAndAbove] given $reactableId returns respective Reactable, throws NotFound
     getReactableById(reactableId: Long!): Reactable!
@@ -23,8 +23,8 @@ extend type Query{
 
 extend type Mutation {
 
-    # [ClientAndAbove] submit a post in general timeline
-    submitPost(submittable: Submittable!): Post!
+    # [ClientAndAbove] submit a post in general timeline, if :subCircleId is provided post will be submitted in subCircle, throws access denied if it's not possible
+    submitPost(submittable: Submittable! subCircleId: Long @optional(narrows: "subCircle")): Post!
 
     # [ClientAndAbove] submit a comment under given $reactable
     submitComment(submittable: Submittable! reactableId: Long!): Comment!

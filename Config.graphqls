@@ -4,3 +4,7 @@ scalar Void
 scalar UUID
 scalar URL
 scalar Date
+#scalar ColorCode
+
+
+directive @optional(narrows: String!) on ARGUMENT_DEFINITION

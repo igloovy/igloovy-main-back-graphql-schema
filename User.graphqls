@@ -20,6 +20,8 @@ interface PublicUserData{
 interface SelfData{
     email: Email!
     subscribedCategories: [Category!]!
+    ownedCircles: [Circle!]!
+    joinedCircles: [Circle!]!
 }
 
 type Self implements SelfData & PublicUserData{
@@ -30,7 +32,8 @@ type Self implements SelfData & PublicUserData{
     createdDate: Date!
     userTag: String!
     avatarPicture: File
-
+    ownedCircles: [Circle!]!
+    joinedCircles: [Circle!]!
 }
 
 type SelfMutation implements SelfData & PublicUserData{
@@ -40,7 +43,8 @@ type SelfMutation implements SelfData & PublicUserData{
     createdDate: Date!
     userTag: String!
     avatarPicture: File
-
+    ownedCircles: [Circle!]!
+    joinedCircles: [Circle!]!
 
     subscribedCategories: [Category!]!
 
