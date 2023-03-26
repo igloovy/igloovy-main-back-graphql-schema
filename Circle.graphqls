@@ -2,7 +2,7 @@ extend type Query {
     # [ClientAndAbove] given :circleId returns Circle associated with this Id
     getCircleById(circleId: Long!): Circle!
     # [ClientAndAbove] search and explore on circles. :searchParam is optional to narrow searching, paginate using :lastCircleId (seek loadMore)
-    exploreCircles(lastCircleId: Long! size: Int! searchParam: String): [Circle!]!
+    exploreCircles(lastCircleId: Long size: Int! searchParam: String): [Circle!]!
 }
 
 extend type Mutation {
@@ -16,6 +16,7 @@ extend type Mutation {
 
 type Circle{
     circleId: Long!
+    createdDate: Date!
     information: CircleInformation!
     exploreUsers(lastCircleUserId: Long! size: Int! searchParam: String): [CircleUser!]!
     owners: [CircleUser!]!
