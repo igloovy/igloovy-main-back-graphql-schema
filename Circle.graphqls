@@ -9,7 +9,7 @@ extend type Mutation {
     # [ClientAndAbove] do operations (mutations) regarding a circle
     mutateCircleById(circleId: Long!): CircleMutation!
     # [ClientAndAbove] join circle by token, throws  {NotFound : "token doesn't exist", AlreadyExist : "already in Circle", BadState: "token is expired or you are not allowed to use this token"}
-    joinCircleByInvitationToken(token: UUID!): CircleMutation!
+    joinCircleByInvitationToken(circleId: Long!): Circle!
     # [ClientAndAbove] create a circle
     createCircle(circleName: String!): CircleMutation!
 }
@@ -18,7 +18,7 @@ type Circle{
     circleId: Long!
     createdDate: Date!
     information: CircleInformation!
-    exploreUsers(lastCircleUserId: Long! size: Int! searchParam: String): [CircleUser!]!
+    exploreUsers( size: Int! lastCircleUserId: Long = null searchParam: String = null): [CircleUser!]!
     owners: [CircleUser!]!
     subCircles: [SubCircle!]!
     isCurrentUserOwnerOfThisCircle: Boolean!
@@ -76,7 +76,7 @@ type CircleMutation {
     # [ClientAndAbove] make circle user one of owners of this circle
     addUserToOwners(circleUserId: Long!): CircleMutation!
     # [ClientAndAbove] remove circle user from owners of this circle
-    removeUserToOwners(circleUserId: Long!): CircleMutation!
+    removeUserFromOwners(circleUserId: Long!): CircleMutation!
 
 
     # [ClientAndAbove] change name of subCircle by id
@@ -87,15 +87,8 @@ type CircleMutation {
 
     # [ClientAndAbove] create a subCircle
     createSubCircle(subCircleName: String!): SubCircle!
-    # [ClientAndAbove] generate an invitationToken
-    generateInvitationToken: CircleInvitationToken!
     # [ClientAndAbove] a terminal operation to get required data after one (or multiple chain) operation(s)
     commit: Circle!
     # [ClientAndAbove] delete the circle entirely
     delete: Void
-}
-
-type CircleInvitationToken{
-    token: UUID!
-    expirationDate: Date!
 }
