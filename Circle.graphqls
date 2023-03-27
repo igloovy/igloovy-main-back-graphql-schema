@@ -9,7 +9,9 @@ extend type Mutation {
     # [ClientAndAbove] do operations (mutations) regarding a circle
     mutateCircleById(circleId: Long!): CircleMutation!
     # [ClientAndAbove] join circle by token, throws  {NotFound : "token doesn't exist", AlreadyExist : "already in Circle", BadState: "token is expired or you are not allowed to use this token"}
-    joinCircleByInvitationToken(circleId: Long!): Circle!
+    joinCircleById(circleId: Long!): Circle!
+    # [ClientAndAbove] leave circle by id
+    leaveCircleById(circleId: Long!): Void
     # [ClientAndAbove] create a circle
     createCircle(circleName: String!): CircleMutation!
 }
@@ -22,6 +24,10 @@ type Circle{
     owners: [CircleUser!]!
     subCircles: [SubCircle!]!
     isCurrentUserOwnerOfThisCircle: Boolean!
+
+    # --- calculated ---
+    numberOfUsers: Long!
+
 }
 
 type SubCircle{
@@ -38,8 +44,6 @@ type CircleInformation{
     logoPicture: File
     bannerPicture: File
 
-    # --- calculated ---
-    numberOfUsers: Long!
 }
 
 type CircleUser implements PublicUserData{
