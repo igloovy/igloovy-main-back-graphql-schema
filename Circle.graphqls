@@ -10,8 +10,6 @@ extend type Mutation {
     mutateCircleById(circleId: Long!): CircleMutation!
     # [ClientAndAbove] join circle by token, throws  {NotFound : "token doesn't exist", AlreadyExist : "already in Circle", BadState: "token is expired or you are not allowed to use this token"}
     joinCircleById(circleId: Long!): Circle!
-    # [ClientAndAbove] leave circle by id
-    leaveCircleById(circleId: Long!): Void
     # [ClientAndAbove] create a circle
     createCircle(circleName: String!): CircleMutation!
 }
@@ -95,4 +93,6 @@ type CircleMutation {
     commit: Circle!
     # [ClientAndAbove] delete the circle entirely
     delete: Void
+    # [ClientAndAbove] leave circle
+    leaveCircle: Void
 }
