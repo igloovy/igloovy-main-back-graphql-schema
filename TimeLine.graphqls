@@ -1,7 +1,12 @@
 extend type Query{
 
     # [ClientAndAbove] given last id of current page, loads $size more of posts, if :subCircleId is provided it would only be execute against subCircle
-    explorePosts(lastId: Long , size: Int! subCircleId: Long @optional(narrows: "subCircle")): [Post!]!
+    explorePosts(
+        lastId: Long
+        size: Int!
+        subCircleId: Long @optional(narrows: "subCircle")
+        searchParam: String = null
+    ): [Post!]!
 
     # [ClientAndAbove] given $reactableId returns respective Reactable, throws NotFound
     getReactableById(reactableId: Long!): Reactable!
