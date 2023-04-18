@@ -38,6 +38,8 @@ extend type Mutation {
     # [ClientAndAbove] react with an emoji on a multipartReactable
     reactWithEmoji(emojiUnicode: String! multipartReactableId: Long!): MultipartReactable!
 
+    # [ClientAndAbove] edit reactable with given $reactableId, throws NotFound (reactableId) or access denied if it's not possible
+    editReactable(reactableId: Long! submittable: Submittable!): MultipartReactable!
 }
 
 input Submittable {
