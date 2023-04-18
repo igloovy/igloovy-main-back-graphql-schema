@@ -6,6 +6,7 @@ extend type Query{
         size: Int!
         subCircleId: Long @optional(narrows: "subCircle")
         searchParam: String = null
+        sortBy: ExplorePostSort! = CREATED_DATE
     ): [Post!]!
 
     # [ClientAndAbove] given $reactableId returns respective Reactable, throws NotFound
@@ -83,6 +84,8 @@ type Post implements MultipartReactable & Multipart & Reactable & ImmutableUserI
     reactions: [Comment!]!
     reactionsCount: Int!
     emojis: [Emoji!]!
+
+    numberOfAllReactions: Int!
 }
 
 
@@ -102,4 +105,9 @@ type Emoji{
     unicode: String!
     # [Computed]
     count: Long!
+}
+
+enum ExplorePostSort {
+    CREATED_DATE,
+    MOST_NUMBER_OF_REACTIONS
 }
