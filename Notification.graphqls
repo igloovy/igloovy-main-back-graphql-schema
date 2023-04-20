@@ -51,3 +51,12 @@ type InvitationNotification implements Notification{
     ####
     invitation: Invitation!
 }
+
+type ChatRoomMessageNotification implements Notification{
+    notificationId: Long!
+    title: String!
+    createdDate: Date!
+    seen: Boolean!
+    ####
+    chatRoomMessage: ChatRoomMessage!
+}
