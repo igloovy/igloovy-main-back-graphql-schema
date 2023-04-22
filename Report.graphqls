@@ -1,0 +1,60 @@
+extend type Query {
+
+    # [AdminOnly] given last id of current page, loads $size more of reports
+    exploreReports(
+        lastId: Long
+        size: Int!
+        reasonFilter: ReportReason = null
+    ): [Report!]!
+
+
+    # [AdminOnly] given $reportId returns respective Report, throws NotFound
+    getReportById(reportId: Long!): Report!
+
+}
+
+extend type Mutation {
+
+    # [ClientAndAbove] report under given $Id
+    report(reportGroup: ReportGroup!, id: String!, reportInput: ReportInput!): Report!
+
+}
+
+# any thing which can be report on
+interface Report implements ImmutableUserItem {
+    reportId: Long!
+    createdBy: User!
+    createdDate: Date!
+    reason: ReportReason!
+    text: String!
+}
+
+type ReportedReactable implements Report & ImmutableUserItem {
+    reportId: Long!
+    createdBy: User!
+    createdDate: Date!
+    reason: ReportReason!
+    text: String!
+
+    reactable: MultipartReactable!
+}
+
+input ReportInput {
+    reason: ReportReason!
+    text: String!
+}
+
+enum ReportGroup {
+    REACTABLE
+    USER
+    CIRCLE
+    IMMERSIVE
+}
+
+enum ReportReason {
+    SPAM
+    ABUSE_OR_HARASSMENT
+    MISINFORMATION_OR_VIOLATION
+    PRIVATE_DATA_EXPOSING
+    OTHER
+}
