@@ -9,4 +9,15 @@ type Mutation{
     loginWithEmailAndPassword(email: Email!, password: String!): Void
     # [ClientAndAbove]
     logOut: Void
+
+    # [OnlyAnon] throws: NotFound if no user with given $email exist
+    requestPasswordRecoveryWithEmail(email: Email!): PasswordRecoveryToken!
+    # [OnlyAnon] throws: NotFound if $prtId doesn't exist, BadState if token doesn't match or it's expired or used
+    completePasswordRecoveryWithEmail(prtId: UUID!, token: Long!, password: String!): Void
+}
+
+type PasswordRecoveryToken{
+    prtId: UUID!
+    subject: PublicUserData!
+    createdDate: Date!
 }
