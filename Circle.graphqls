@@ -5,6 +5,11 @@ extend type Query {
     exploreCircles(lastCircleId: Long size: Int! searchParam: String): [Circle!]!
 }
 
+extend type Self {
+    ownedCircles: [Circle!]!
+    joinedCircles: [Circle!]!
+}
+
 extend type Mutation {
     # [ClientAndAbove] do operations (mutations) regarding a circle
     mutateCircleById(circleId: Long!): CircleMutation!

@@ -12,3 +12,11 @@ extend type Query {
     rootCategories: [Category!]!
     categoryById(categoryId: Long!) : Category!
 }
+extend type Self {
+    subscribedCategories: [Category!]!
+}
+
+extend type SelfMutation {
+    addSubscribedCategory(categoryId: Long!): SelfMutation!
+    removeSubscribedCategory(categoryId: Long!): SelfMutation!
+}
