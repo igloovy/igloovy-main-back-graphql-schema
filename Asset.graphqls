@@ -8,10 +8,10 @@ extend type Query {
 }
 
 extend type Self {
-    # [ClientAndAbove] explore owned assets
+    # explore owned assets
     exploreOwnedAssets(lastId: Long=null size: Int! = 10): [OwnedAsset!]!
-    # [ClientAndAbove] explore owned collections
-    exploreOwnedCollections(lastId: Long=null size: Int! = 10): [OwnedAsset!]!
+    # explore owned collections
+    exploreOwnedCollections(lastId: Long=null size: Int! = 10): [Collection!]!
 }
 
 extend type Mutation {
@@ -38,6 +38,8 @@ type Asset implements IAsset{
     name: String!
     collection: Collection!
     createdDate: Date!
+
+    numberOfCopies: Int!
 }
 
 type OwnedAsset implements IAsset{
@@ -55,6 +57,7 @@ type Collection{
     collectionId: Long!
     name: String!
     creator: PublicUserData!
+    createdDate: Date!
 
     exploreAssets(lastId: Long=null size: Int! = 10): [Asset!]!
     exploreOwnedAssets(lastId: Long=null size: Int! = 10): [OwnedAsset!]!
