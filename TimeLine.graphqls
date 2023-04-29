@@ -52,6 +52,7 @@ interface Reactable implements ImmutableUserItem{
     reactableId: Long!
     createdBy: User!
     createdDate: Date!
+    lastModifiedDate: Date
     reactions: [Reactable!]!
     reactionsCount: Int!
 }
@@ -66,6 +67,7 @@ interface MultipartReactable implements Reactable & Multipart & ImmutableUserIte
     reactableId: Long!
     createdBy: User!
     createdDate: Date!
+    lastModifiedDate: Date
     reactions: [MultipartReactable!]!
     reactionsCount: Int!
 
@@ -83,6 +85,7 @@ type Post implements MultipartReactable & Multipart & Reactable & ImmutableUserI
     text: String!
     files: [File!]!
     createdDate: Date!
+    lastModifiedDate: Date
     reactions: [Comment!]!
     reactionsCount: Int!
     emojis: [Emoji!]!
@@ -97,6 +100,7 @@ type Comment implements MultipartReactable & Multipart & Reactable & ImmutableUs
     text: String!
     files: [File!]!
     createdDate: Date!
+    lastModifiedDate: Date
     emojis: [Emoji!]!
     reactions: [Comment!]!
     reactionsCount: Int!
