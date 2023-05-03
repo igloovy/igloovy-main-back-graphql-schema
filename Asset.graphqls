@@ -25,6 +25,16 @@ interface IAsset{
     name: String!
     collection: Collection!
     createdDate: Date!
+    numberOfCopies: Int!
+}
+interface IOwnedAsset implements IAsset{
+    assetId: Long!
+    content: File!
+    name: String!
+    collection: Collection!
+    createdDate: Date!
+    numberOfCopies: Int!
+    owner: PublicUserData!
 }
 
 input AssetInput{
@@ -38,19 +48,18 @@ type Asset implements IAsset{
     name: String!
     collection: Collection!
     createdDate: Date!
-
     numberOfCopies: Int!
 }
-
-type OwnedAsset implements IAsset{
+type OwnedAsset implements IOwnedAsset & IAsset{
     assetId: Long!
     content: File!
     name: String!
     collection: Collection!
     createdDate: Date!
-
+    numberOfCopies: Int!
     owner: PublicUserData!
 }
+
 
 type Collection{
 
@@ -59,6 +68,6 @@ type Collection{
     creator: PublicUserData!
     createdDate: Date!
 
-    exploreAssets(lastId: Long=null size: Int! = 10): [Asset!]!
-    exploreOwnedAssets(lastId: Long=null size: Int! = 10): [OwnedAsset!]!
+    exploreAssets(lastId: Long=null size: Int! = 10): [IAsset!]!
+    exploreOwnedAssets(lastId: Long=null size: Int! = 10): [IOwnedAsset!]!
 }
