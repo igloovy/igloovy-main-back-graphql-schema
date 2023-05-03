@@ -1,0 +1,82 @@
+extend type Query {
+    fetchAvatarAssets: [IAvatarAsset!]!
+}
+
+interface IUnityAsset implements IOwnedAsset & IAsset{
+    assetId: Long!
+    content: File!
+    name: String!
+    collection: Collection!
+    createdDate: Date!
+    owner: PublicUserData!
+    numberOfCopies: Int!
+
+    ####
+    thumbnail: File!
+}
+
+interface IAvatarAsset implements IUnityAsset & IOwnedAsset & IAsset{
+    assetId: Long!
+    content: File!
+    name: String!
+    collection: Collection!
+    createdDate: Date!
+    owner: PublicUserData!
+    numberOfCopies: Int!
+    thumbnail: File!
+}
+
+type AvatarBaseAsset implements IAvatarAsset & IUnityAsset & IOwnedAsset & IAsset{
+    assetId: Long!
+    content: File!
+    name: String!
+    collection: Collection!
+    createdDate: Date!
+    owner: PublicUserData!
+    numberOfCopies: Int!
+    thumbnail: File!
+}
+
+type AvatarHairAsset implements IAvatarAsset & IUnityAsset & IOwnedAsset & IAsset{
+    assetId: Long!
+    content: File!
+    name: String!
+    collection: Collection!
+    createdDate: Date!
+    owner: PublicUserData!
+    numberOfCopies: Int!
+    thumbnail: File!
+}
+
+
+type Avatar{
+    base: AvatarBaseAsset!
+    hair: AvatarHairAsset!
+}
+
+
+
+### extending PublicUserData interface and all of it's implementations ####
+extend interface PublicUserData {
+    avatar: Avatar!
+}
+
+extend type CircleUser {
+    avatar: Avatar!
+}
+extend type User {
+    avatar: Avatar!
+}
+extend type Self {
+    avatar: Avatar!
+}
+##########################################################
+
+input AvatarInput{
+    base: Long!
+    hair: Long!
+}
+
+extend type SelfMutation {
+    updateAvatar(avatarInput: AvatarInput): SelfMutation!
+}
