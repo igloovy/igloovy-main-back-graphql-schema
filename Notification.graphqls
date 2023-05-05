@@ -1,0 +1,44 @@
+extend type Self {
+    exploreNotifications(lastId: Long, size: Int! = 10, filter: String): [Notification!]!
+    getNotificationById(notificationId: Long!): Notification!
+    countOfUnreadNotification: Int!
+}
+
+extend type SelfMutation {
+    seenNotification(notificationId: Long!): Notification!
+    seenAllNotification: Void
+}
+
+type Subscription {
+    # [ClientAndAbove]
+    subscribeNotifications: Notification!
+}
+
+
+interface Notification{
+    notificationId: Long!
+    title: String!
+    createdDate: Date!
+    seen: Boolean!
+}
+
+
+type ReactableReplyNotification implements Notification{
+    notificationId: Long!
+    title: String!
+    createdDate: Date!
+    seen: Boolean!
+    ####
+    reactable: MultipartReactable!
+    reply: MultipartReactable!
+}
+
+type ReactableEmoteNotification implements Notification{
+    notificationId: Long!
+    title: String!
+    createdDate: Date!
+    seen: Boolean!
+    ####
+    reactable: MultipartReactable!
+    emoji: Emoji!
+}
