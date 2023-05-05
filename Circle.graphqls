@@ -55,6 +55,7 @@ type CircleUser implements PublicUserData{
     createdDate: Date!
     userTag: String!
     avatarPicture: File
+    aboutMe: String
     # ---- extra ----
 #    roles: [CircleRole!]!
 }

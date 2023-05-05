@@ -15,10 +15,14 @@ interface PublicUserData{
     createdDate: Date!
     userTag: String!
     avatarPicture: File
+    aboutMe: String
 }
 
 interface SelfData{
     email: Email!
+    birthDay: Date
+    gender: Gender!
+    hasPassword: Boolean!
 }
 
 type Self implements SelfData & PublicUserData{
@@ -27,15 +31,20 @@ type Self implements SelfData & PublicUserData{
     email: Email!
     createdDate: Date!
     userTag: String!
+    gender: Gender!
     avatarPicture: File
+    birthDay: Date
+    aboutMe: String
+    hasPassword: Boolean!
 }
 
 type SelfMutation {
-    setPassword(password: String!): SelfMutation!
+    setPassword(newPassword: String!, oldPassword: String): SelfMutation!
     setDisplayName(displayName: String!): SelfMutation!
-
-    setAvatar(fileId: UUID!): SelfMutation!
-    removeAvatar: SelfMutation!
+    setAboutMe(aboutMe: String): SelfMutation!
+    setBirthDay(birthDay: Date): SelfMutation!
+    setGender(gender: Gender): SelfMutation!
+    setAvatar(fileId: UUID): SelfMutation!
 
     commit: Self!
 }
@@ -46,13 +55,18 @@ enum Authority{
     ROLE_CLIENT,
     ROLE_ADMIN
 }
-
+enum Gender{
+    MALE,
+    FEMALE,
+    PREFER_NOT_TO_TELL
+}
 type User implements PublicUserData{
     userId: Long!
     displayName: String!
     createdDate: Date!
     userTag: String!
     avatarPicture: File
+    aboutMe: String
 }
 
 interface ImmutableUserItem{
