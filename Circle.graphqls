@@ -15,8 +15,8 @@ extend type Mutation {
     mutateCircleById(circleId: Long!): CircleMutation!
     # [ClientAndAbove] join circle by token, throws  {NotFound : "token doesn't exist", AlreadyExist : "already in Circle", BadState: "token is expired or you are not allowed to use this token"}
     joinCircleById(circleId: Long!): Circle!
-    # [ClientAndAbove] create a circle
-    createCircle(circleName: String!): CircleMutation!
+    #    # [ClientAndAbove] create a circle
+    #    createCircle(circleName: String!): CircleMutation!
 }
 
 type Circle{
@@ -24,9 +24,8 @@ type Circle{
     createdDate: Date!
     information: CircleInformation!
     exploreUsers( size: Int! lastCircleUserId: Long = null searchParam: String = null): [CircleUser!]!
-    owners: [CircleUser!]!
+    owner: CircleUser!
     subCircles: [SubCircle!]!
-    isCurrentUserOwnerOfThisCircle: Boolean!
 
     # --- calculated ---
     numberOfUsers: Long!
@@ -57,7 +56,7 @@ type CircleUser implements PublicUserData{
     avatarPicture: File
     aboutMe: String
     # ---- extra ----
-#    roles: [CircleRole!]!
+    #    roles: [CircleRole!]!
 }
 
 #type CircleRole{
@@ -81,10 +80,6 @@ type CircleMutation {
 
     # [ClientAndAbove] delete user by id of this circle
     deleteCircleUser(circleUserId: Long!): CircleMutation!
-    # [ClientAndAbove] make circle user one of owners of this circle
-    addUserToOwners(circleUserId: Long!): CircleMutation!
-    # [ClientAndAbove] remove circle user from owners of this circle
-    removeUserFromOwners(circleUserId: Long!): CircleMutation!
 
 
     # [ClientAndAbove] change name of subCircle by id

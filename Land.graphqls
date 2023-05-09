@@ -1,0 +1,60 @@
+type Tile {
+    coordinate: CubicCoordinate!
+    empire: Empire
+    owned: Boolean!
+    buildings: [Building!]!
+}
+
+type Empire implements ImmutableUserItem{
+    empireId: Long!
+    createdBy: User!
+    createdDate: Date!
+    tiles: [Tile!]!
+    buildings: [Building!]!
+    circle: Circle!
+    centralCoordinate: CubicCoordinate!
+    numberOfTiles: Int!
+}
+
+type Building{
+    buildingId: Long!
+    empire: Empire!
+    tile: Tile!
+    state: String!
+}
+
+type CubicCoordinate{
+    x: Float!
+    y: Float!
+
+    r: Long!
+    s: Long!
+    q: Long!
+}
+
+input Coordinate{
+    r: Long!
+    s: Long!
+    q: Long!
+}
+
+input CircleInformationInput{
+    circleName: String!
+    description: String
+    websiteUrl: URL
+    logoPicture: UUID
+    bannerPicture: UUID
+}
+
+extend type Mutation {
+    # [AdminOnly]
+    generateRings(number: Int!): Void
+    # [ClientAndAbove]
+    establishEmpire(circleInformation: CircleInformationInput!, tiles: [Coordinate!]!): Empire!
+}
+
+union MapBlock = Empire | Tile
+extend type Query {
+    # [ClientAndAbove] scale from 0 (most close) to 1 (most far), at around 0.2 it starts giving your Tile otherwise Empire
+    exploreLand(scale: Float! centeredAt: Coordinate! = {r:0 s:0 q:0}): [MapBlock!]!
+}
