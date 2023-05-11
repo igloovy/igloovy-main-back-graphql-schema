@@ -3,6 +3,8 @@ type Tile {
     empire: Empire
     owned: Boolean!
     buildings: [Building!]!
+    price: Float!
+    priceHistory: [Float!]!
 }
 
 type Empire implements ImmutableUserItem{
