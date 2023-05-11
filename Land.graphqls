@@ -16,6 +16,10 @@ type Empire implements ImmutableUserItem{
     numberOfTiles: Int!
 }
 
+extend type Circle {
+    empire: Empire!
+}
+
 type Building{
     buildingId: Long!
     empire: Empire!
@@ -49,12 +53,20 @@ input CircleInformationInput{
 extend type Mutation {
     # [AdminOnly]
     generateRings(number: Int!): Void
-    # [ClientAndAbove]
+    # [ClientAndAbove] creates new empire
     establishEmpire(circleInformation: CircleInformationInput!, tiles: [Coordinate!]!): Empire!
+    # [ClientAndAbove] only owner of the empire
+    updateEmpireTerritory(empireId: Long!, tiles: [Coordinate!]!): Empire!
 }
 
 union MapBlock = Empire | Tile
 extend type Query {
     # [ClientAndAbove] scale from 0 (most close) to 1 (most far), at around 0.2 it starts giving your Tile otherwise Empire
     exploreLand(scale: Float! centeredAt: Coordinate! = {r:0 s:0 q:0}): [MapBlock!]!
+    # [ClientAndAbove]
+    getEmpireById(empireId: Long!): Empire!
+}
+
+extend type Self {
+    ownedEmpires: [Empire!]!
 }
