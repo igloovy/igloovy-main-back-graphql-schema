@@ -3,5 +3,5 @@ extend type Mutation {
     subscribeToEmailList(email: Email!): Boolean!
 
     # [AdminOnly] refreshes the indexes
-    invokeMassIndexer: Void!
+    invokeMassIndexer: Void
 }
