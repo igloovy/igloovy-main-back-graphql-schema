@@ -6,7 +6,7 @@ extend type Query{
         size: Int!
         subCircleId: Long @optional(narrows: "subCircle")
         searchParam: String = null
-        sortBy: ExplorePostSort! = CREATED_DATE
+        sortBy: ExplorePostSort! = CREATED_DATE_DESCEND
     ): [Post!]!
 
     # [ClientAndAbove] given $reactableId returns respective Reactable, throws NotFound
@@ -114,6 +114,7 @@ type Emoji{
 }
 
 enum ExplorePostSort {
-    CREATED_DATE,
+    CREATED_DATE_DESCEND,
+    CREATED_DATE_ASCEND,
     MOST_NUMBER_OF_REACTIONS
 }
