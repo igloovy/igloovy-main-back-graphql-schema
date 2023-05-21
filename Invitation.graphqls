@@ -1,0 +1,27 @@
+extend type Self {
+    # [SelfOnly] given last id of current page, loads $size more of Invitation
+    exploreInvitation(lastId: Long, size: Int! = 10): [Invitation!]!
+    # [SelfOnly] given invitationId returns respective Invitation, throws NotFound
+    getInvitationById(invitationId: Long): Invitation!
+}
+
+extend type CircleMutation {
+    # [ClientAndAbove] sent invitation by email addr, returns a Invitation, throws  {NotFound : "circle doesn't exist", NotFound : "user doesn't exist", AlreadyExist : "already joined to Circle", AlreadyExist : "invitation already exist", AccessDenied}
+    sendCircleInvitation(email: Email!): Invitation!
+}
+
+interface Invitation {
+    invitationId: Long
+    createdDate: Date
+    host: User
+    guest: User
+}
+
+type CircleInvitation implements Invitation{
+    invitationId: Long
+    createdDate: Date
+    host: User
+    guest: User
+    ####
+    circle: Circle
+}

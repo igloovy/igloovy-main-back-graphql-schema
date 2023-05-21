@@ -42,3 +42,12 @@ type ReactableEmoteNotification implements Notification{
     reactable: MultipartReactable!
     emoji: Emoji!
 }
+
+type InvitationNotification implements Notification{
+    notificationId: Long!
+    title: String!
+    createdDate: Date!
+    seen: Boolean!
+    ####
+    invitation: Invitation!
+}
