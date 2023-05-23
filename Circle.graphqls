@@ -24,7 +24,7 @@ type Circle{
     createdDate: Date!
     information: CircleInformation!
     exploreUsers( size: Int! lastCircleUserId: Long = null searchParam: String = null): [CircleUser!]!
-    owner: CircleUser!
+    circleOwner: CircleUser!
     subCircles: [SubCircle!]!
 
     # --- calculated ---
