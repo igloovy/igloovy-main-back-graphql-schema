@@ -64,7 +64,8 @@ extend type Mutation {
 union MapBlock = Empire | Tile
 extend type Query {
     # [ClientAndAbove] scale from 0 (most close) to 1 (most far), at around 0.2 it starts giving your Tile otherwise Empire
-    exploreLand(scale: Float! centeredAt: Coordinate! = {r:0 s:0 q:0}): [MapBlock!]!
+    # 1.77 = 16/9
+    exploreLand(scale: Float! centeredAt: Coordinate! = {r:0 s:0 q:0} aspectRation: Float! = 1.77): [MapBlock!]!
     # [ClientAndAbove]
     getEmpireById(empireId: Long!): Empire!
 }
