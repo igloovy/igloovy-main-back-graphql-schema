@@ -26,6 +26,7 @@ type Circle{
     exploreUsers( size: Int! lastCircleUserId: Long = null searchParam: String = null): [CircleUser!]!
     circleOwner: CircleUser!
     subCircles: [SubCircle!]!
+    defaultSubCircle: SubCircle!
 
     # --- calculated ---
     numberOfUsers: Long!

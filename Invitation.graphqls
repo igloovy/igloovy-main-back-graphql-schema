@@ -2,7 +2,7 @@ extend type Self {
     # [SelfOnly] given last id of current page, loads $size more of Invitation
     exploreInvitation(lastId: Long, size: Int! = 10): [Invitation!]!
     # [SelfOnly] given invitationId returns respective Invitation, throws NotFound
-    getInvitationById(invitationId: Long): Invitation!
+    getInvitationById(invitationId: Long!): Invitation!
 }
 
 extend type CircleMutation {
@@ -11,17 +11,17 @@ extend type CircleMutation {
 }
 
 interface Invitation {
-    invitationId: Long
-    createdDate: Date
-    host: User
-    guest: User
+    invitationId: Long!
+    createdDate: Date!
+    host: User!
+    guest: User!
 }
 
 type CircleInvitation implements Invitation{
-    invitationId: Long
-    createdDate: Date
-    host: User
-    guest: User
+    invitationId: Long!
+    createdDate: Date!
+    host: User!
+    guest: User!
     ####
     circle: Circle
 }
