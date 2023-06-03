@@ -40,13 +40,11 @@ type SubCircle{
 }
 
 type CircleInformation{
-
     name: String!
     description: String
     websiteUrl: URL
     logoPicture: File
     bannerPicture: File
-
 }
 
 type CircleUser implements PublicUserData{
@@ -57,14 +55,8 @@ type CircleUser implements PublicUserData{
     avatarPicture: File
     aboutMe: String
     # ---- extra ----
-    #    roles: [CircleRole!]!
+    roles: [Role!]!
 }
-
-#type CircleRole{
-#    roleId: Long!
-#    roleName: String!
-#    roleColor: ColorCode!
-#}
 
 type CircleMutation {
 

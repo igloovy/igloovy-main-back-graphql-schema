@@ -1,0 +1,18 @@
+{
+  "circle": {
+    "EDIT_CIRCLE_INFO": "1",
+    "MANAGE_SUB_CIRCLES": "2",
+    "INVITE_MEMBERS": "4",
+    "KICK_MEMBERS": "8",
+    "MANAGE_ROLES": "16"
+  },
+  "subCircle": {
+    "VIEW_SUB_CIRCLE": "1",
+    "SEND_TEXT_POST": "2",
+    "SEND_FILE_POST": "4",
+    "SEND_TEXT_COMMENT": "8",
+    "SEND_FILE_COMMENT": "16",
+    "REACT_TO_REACTABLE": "32",
+    "EDIT_MESSAGE": "64"
+  }
+}

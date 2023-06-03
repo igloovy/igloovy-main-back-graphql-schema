@@ -1,0 +1,31 @@
+type Role{
+    roleId: Long!
+    information: RoleInformation!
+    circlePermission: CircleInformation!
+    subCirclePermissions: [SubCirclePermission!]!
+}
+
+type CirclePermission{
+    permission: Long!
+    circle: Circle!
+}
+
+type SubCirclePermission{
+    permission: Long!
+    subCircle: SubCircle!
+}
+
+type RoleInformation{
+    name: String!
+    color: String!
+}
+
+
+extend type Circle {
+    permission: Long!
+}
+
+
+extend type SubCircle {
+    permission: Long!
+}
