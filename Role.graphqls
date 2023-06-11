@@ -1,0 +1,64 @@
+type Role{
+    roleId: Long!
+    information: RoleInformation!
+    circlePermission: CircleInformation!
+    subCirclePermissions: [SubCirclePermission!]!
+}
+
+extend type Query {
+    getRoleById(roleId: Long!): Role!
+}
+
+extend type Circle {
+    roles: [Role!]!
+}
+
+extend type CircleMutation {
+
+    addRole(input: RoleInformationInput!): Role!
+    removeRole(roleId: Long!): CircleMutation!
+    updateRole(roleId: Long!  input: RoleInformationInput!): Role!
+
+    addRoleToUser(roleId: Long! userId: Long!): CircleUser!
+    removeRoleFromUser(roleId: Long! userId: Long!): CircleUser!
+
+}
+
+extend type SubCircleMutation {
+    associatePermissionToRole(roleId: Long!  permission: Long!): SubCircleMutation!
+    deAssociatePermissionFromRole(roleId: Long!): SubCircleMutation!
+}
+
+type CirclePermission{
+    permission: Long!
+    circle: Circle!
+}
+
+type SubCirclePermission{
+    permission: Long!
+    subCircle: SubCircle!
+}
+
+
+
+input RoleInformationInput {
+    name: String!
+    color: String!
+}
+
+type RoleInformation{
+    name: String!
+    color: String!
+}
+
+
+extend type Circle {
+    # user permission respect to this circle
+    permission: Long!
+}
+
+
+extend type SubCircle {
+    # user permission respect to this subCircle
+    permission: Long!
+}

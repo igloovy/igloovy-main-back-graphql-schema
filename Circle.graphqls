@@ -15,8 +15,8 @@ extend type Mutation {
     mutateCircleById(circleId: Long!): CircleMutation!
     # [ClientAndAbove] join circle by token, throws  {NotFound : "token doesn't exist", AlreadyExist : "already in Circle", BadState: "token is expired or you are not allowed to use this token"}
     joinCircleById(circleId: Long!): Circle!
-    #    # [ClientAndAbove] create a circle
-    #    createCircle(circleName: String!): CircleMutation!
+    # [ClientAndAbove] do operations on subCircle
+    mutateSubCircleById(subCircleId: Long!): SubCircleMutation!
 }
 
 type Circle{
@@ -40,13 +40,11 @@ type SubCircle{
 }
 
 type CircleInformation{
-
     name: String!
     description: String
     websiteUrl: URL
     logoPicture: File
     bannerPicture: File
-
 }
 
 type CircleUser implements PublicUserData{
@@ -57,14 +55,8 @@ type CircleUser implements PublicUserData{
     avatarPicture: File
     aboutMe: String
     # ---- extra ----
-    #    roles: [CircleRole!]!
+    roles: [Role!]!
 }
-
-#type CircleRole{
-#    roleId: Long!
-#    roleName: String!
-#    roleColor: ColorCode!
-#}
 
 type CircleMutation {
 
@@ -82,13 +74,6 @@ type CircleMutation {
     # [ClientAndAbove] delete user by id of this circle
     deleteCircleUser(circleUserId: Long!): CircleMutation!
 
-
-    # [ClientAndAbove] change name of subCircle by id
-    changeSubCircleName(subCircleId: Long! subCircleNewName: String!): CircleMutation!
-    # [ClientAndAbove] delete subCircle by id
-    deleteSubCircleById(subCircleId: Long!): CircleMutation!
-
-
     # [ClientAndAbove] create a subCircle
     createSubCircle(subCircleName: String!): SubCircle!
     # [ClientAndAbove] a terminal operation to get required data after one (or multiple chain) operation(s)
@@ -97,4 +82,13 @@ type CircleMutation {
     delete: Void
     # [ClientAndAbove] leave circle
     leaveCircle: Void
+}
+
+type SubCircleMutation{
+    # [ClientAndAbove] change name of subCircle by id
+    changeSubCircleName(subCircleNewName: String!): SubCircleMutation!
+    # [ClientAndAbove] delete subCircle by id
+    deleteSubCircle: Void
+    # [ClientAndAbove] a terminal operation to get required data after one (or multiple chain) operation(s)
+    commit: SubCircle!
 }
