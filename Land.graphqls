@@ -34,15 +34,15 @@ type CubicCoordinate{
     x: Float!
     y: Float!
 
-    r: Long!
-    s: Long!
-    q: Long!
+    r: Int!
+    s: Int!
+    q: Int!
 }
 
 input Coordinate{
-    r: Long!
-    s: Long!
-    q: Long!
+    r: Int!
+    s: Int!
+    q: Int!
 }
 
 input CircleInformationInput{
