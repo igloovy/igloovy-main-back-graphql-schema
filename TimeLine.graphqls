@@ -1,6 +1,6 @@
 extend type Query{
 
-    # [ClientAndAbove] given last id of current page, loads $size more of posts, if :subCircleId is provided it would only be execute against subCircle
+    # [EveryOne when TimeLine ClientAndAbove for subcircles] given last id of current page, loads $size more of posts, if :subCircleId is provided it would only be execute against subCircle
     explorePosts(
         lastId: Long
         size: Int!
