@@ -16,6 +16,7 @@ interface PublicUserData{
     userTag: String!
     avatarPicture: File
     aboutMe: String
+    immersiveAvatar: Int!
 }
 
 interface SelfData{
@@ -36,6 +37,7 @@ type Self implements SelfData & PublicUserData{
     birthDay: Date
     aboutMe: String
     hasPassword: Boolean!
+    immersiveAvatar: Int!
 }
 
 type SelfMutation {
@@ -45,6 +47,7 @@ type SelfMutation {
     setBirthDay(birthDay: Date): SelfMutation!
     setGender(gender: Gender): SelfMutation!
     setAvatar(fileId: UUID): SelfMutation!
+    setImmersiveAvatar(avatar: Int!): SelfMutation!
 
     commit: Self!
 }
@@ -67,6 +70,7 @@ type User implements PublicUserData{
     userTag: String!
     avatarPicture: File
     aboutMe: String
+    immersiveAvatar: Int!
 }
 
 interface ImmutableUserItem{

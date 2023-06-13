@@ -3,6 +3,8 @@ extend type Query {
     getCircleById(circleId: Long!): Circle!
     # [ClientAndAbove] search and explore on circles. :searchParam is optional to narrow searching, paginate using :lastCircleId (seek loadMore)
     exploreCircles(lastCircleId: Long size: Int! searchParam: String): [Circle!]!
+    # [ClientAndAbove]
+    viewUserInCircle(userId: Long! circleId: Long!): CircleUser!
 }
 
 extend type Self {
@@ -54,6 +56,7 @@ type CircleUser implements PublicUserData{
     userTag: String!
     avatarPicture: File
     aboutMe: String
+    immersiveAvatar: Int!
     # ---- extra ----
     roles: [Role!]!
 }
