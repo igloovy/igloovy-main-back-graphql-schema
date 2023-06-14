@@ -69,6 +69,8 @@ extend type Query {
     exploreLand(scale: Float! centeredAt: Coordinate! = {r:0 s:0 q:0} aspectRation: Float! = 1.77): [MapBlock!]!
     # [EveryOne]
     getEmpireById(empireId: Long!): Empire!
+    # [EveryOne]
+    getTileById(coord: Coordinate!): Tile!
 }
 
 extend type Self {
