@@ -29,6 +29,7 @@ type Circle{
     circleOwner: CircleUser!
     subCircles: [SubCircle!]!
     defaultSubCircle: SubCircle!
+    everyOneRole: Role!
 
     # --- calculated ---
     numberOfUsers: Long!
