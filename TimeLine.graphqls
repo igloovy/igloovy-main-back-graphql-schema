@@ -25,6 +25,8 @@ extend type Query{
     getPostsOfUser(userId: Long!  page: Page!): PostPage!
     # [ClientAndAbove] given $userId and $page returns Comments of user paginated, throws NotFound (userId)
     getCommentsOfUser(userId: Long!  page: Page!): CommentPage!
+
+    getReactableWithAllParents(reactableId: Long!): [Reactable!]!
 }
 
 extend type Mutation {
@@ -55,6 +57,7 @@ interface Reactable implements ImmutableUserItem{
     lastModifiedDate: Date
     reactions: [Reactable!]!
     reactionsCount: Int!
+    actualRoot: Post!
 }
 
 interface Multipart{
@@ -70,6 +73,7 @@ interface MultipartReactable implements Reactable & Multipart & ImmutableUserIte
     lastModifiedDate: Date
     reactions: [MultipartReactable!]!
     reactionsCount: Int!
+    actualRoot: Post!
 
     text: String!
     files: [File!]!
@@ -89,6 +93,7 @@ type Post implements MultipartReactable & Multipart & Reactable & ImmutableUserI
     reactions: [Comment!]!
     reactionsCount: Int!
     emojis: [Emoji!]!
+    actualRoot: Post!
 
     numberOfAllReactions: Int!
 }
@@ -105,6 +110,7 @@ type Comment implements MultipartReactable & Multipart & Reactable & ImmutableUs
     reactions: [Comment!]!
     reactionsCount: Int!
     parent: Reactable!
+    actualRoot: Post!
 }
 
 type Emoji{
