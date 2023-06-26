@@ -5,9 +5,21 @@ extend type Self {
     getInvitationById(invitationId: Long!): Invitation!
 }
 
+extend type SelfMutation {
+    # [SelfOnly] given listOf invitationId will decline the invitations regardless of the type of them
+    declineInvitation(invitationIds: [Long!]!): SelfMutation!
+    # [SelfOnly] given invitationId will adds the guest of the invitation to the circle, but only if the invitation type is "CircleInvitationRequest"
+    acceptCircleInvitationRequest(invitationId: Long!): SelfMutation!
+}
+
 extend type CircleMutation {
     # [ClientAndAbove] sent invitation by email addr, returns a Invitation, throws  {NotFound : "circle doesn't exist", NotFound : "user doesn't exist", AlreadyExist : "already joined to Circle", AlreadyExist : "invitation already exist", AccessDenied}
     sendCircleInvitation(email: Email!): Invitation!
+}
+
+extend type Mutation {
+    # [ClientAndAbove] sent join request to the owner of circle by circleId, returns a Invitation, throws  {NotFound : "circle doesn't exist", AlreadyExist : "already joined to Circle"}
+    sendCircleInvitationRequest(circleId: Long!): Invitation!
 }
 
 interface Invitation {
