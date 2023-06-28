@@ -5,3 +5,9 @@ extend type Mutation {
     # [AdminOnly] refreshes the indexes
     invokeMassIndexer: Void
 }
+
+extend type Subscription {
+    primarySearch(param: String!): PrimarySearchResult!
+}
+
+union PrimarySearchResult = Circle | SubCircle
