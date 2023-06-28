@@ -25,7 +25,7 @@ extend type CircleMutation {
 }
 
 extend type SubCircleMutation {
-    associatePermissionToRole(roleId: Long!  permission: Long!): SubCircleMutation!
+    associateOrUpdateRoleWithSubCircle(roleId: Long!  permission: Long!): SubCircleMutation!
     deAssociatePermissionFromRole(roleId: Long!): SubCircleMutation!
 }
 
