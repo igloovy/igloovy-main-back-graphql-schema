@@ -18,6 +18,7 @@ extend type CircleMutation {
     addRole(input: RoleInformationInput!): Role!
     removeRole(roleId: Long!): CircleMutation!
     updateRole(roleId: Long!  input: RoleInformationInput!): Role!
+    updateRolePermission(roleId: Long! permission: Long!): Role!
 
     addRoleToUser(roleId: Long! userId: Long!): CircleUser!
     removeRoleFromUser(roleId: Long! userId: Long!): CircleUser!
