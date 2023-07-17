@@ -52,6 +52,7 @@ type CircleInformation{
     websiteUrl: URL
     logoPicture: File
     bannerPicture: File
+    isPrivate: Boolean
 }
 
 type CircleUser implements PublicUserData{
@@ -78,6 +79,10 @@ type CircleMutation {
     setLogoPicture(fileId: UUID): CircleMutation!
     # [ClientAndAbove] change name of this circle (permission required)
     setBannerPicture(fileId: UUID): CircleMutation!
+    # [ClientAndAbove] make this circle private (permission required)
+    makeItPrivate: CircleMutation!
+    # [ClientAndAbove] make this circle public (permission required)
+    makeItPublic: CircleMutation!
 
     # [ClientAndAbove] delete user by id of this circle
     deleteCircleUser(circleUserId: Long!): CircleMutation!
