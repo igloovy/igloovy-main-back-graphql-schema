@@ -48,11 +48,11 @@ type SubCircle{
 
 type CircleInformation{
     name: String!
+    isPrivate: Boolean!
     description: String
     websiteUrl: URL
     logoPicture: File
     bannerPicture: File
-    isPrivate: Boolean
 }
 
 type CircleUser implements PublicUserData{
