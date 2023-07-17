@@ -1,6 +1,10 @@
 extend type Query {
     # [EveryOne] given :circleId returns Circle associated with this Id
     getCircleById(circleId: Long!): Circle!
+
+    # [ClientAndAbove] permissions required
+    getSubCircleById(subCircleId: Long!): SubCircle!
+
     # [EveryOne] search and explore on circles. :searchParam is optional to narrow searching, paginate using :lastCircleId (seek loadMore)
     exploreCircles(lastCircleId: Long size: Int! searchParam: String): [Circle!]!
     # [ClientAndAbove]

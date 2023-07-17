@@ -1,7 +1,7 @@
 type Role{
     roleId: Long!
     information: RoleInformation!
-    circlePermission: CircleInformation!
+    circlePermission: CirclePermission!
     subCirclePermissions: [SubCirclePermission!]!
 }
 
@@ -62,4 +62,6 @@ extend type Circle {
 extend type SubCircle {
     # user permission respect to this subCircle
     permission: Long!
+    # requires MANAGE_ROLES permission to read this field
+    associatedRoles: [Role!]!
 }
