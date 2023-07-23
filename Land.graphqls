@@ -2,9 +2,10 @@ type Tile {
     coordinate: CubicCoordinate!
     empire: Empire
     owned: Boolean!
-    buildings: [Building!]!
     price: Float!
     priceHistory: [Float!]!
+    overload: String!
+    buildings: [Building!]!
 }
 
 type Empire implements ImmutableUserItem{
@@ -17,6 +18,7 @@ type Empire implements ImmutableUserItem{
     information: CircleInformation!
     centralCoordinate: CubicCoordinate!
     numberOfTiles: Int!
+    overload: String!
 }
 
 extend type Circle {
@@ -25,9 +27,8 @@ extend type Circle {
 
 type Building{
     buildingId: Long!
-    empire: Empire!
     tile: Tile!
-    state: String!
+    overload: String!
 }
 
 type CubicCoordinate{
@@ -60,6 +61,12 @@ extend type Mutation {
     establishEmpire(circleInformation: CircleInformationInput!, tiles: [Coordinate!]!): Empire!
     # [ClientAndAbove] only owner of the empire
     updateEmpireTerritory(empireId: Long!, tiles: [Coordinate!]!): Empire!
+
+    updateEmpireOverload(empireId: Long! overload: String!): Empire!
+    updateTileOverload(tileId: Coordinate! overload: String!): Tile!
+    updateBuildingOverload(buildingId: Long! overload: String!): Building!
+    createBuildingInTile(tileId: Coordinate! overload: String!): Building!
+    removeBuilding(buildingId: Long!): Void
 }
 
 union MapBlock = Empire | Tile
@@ -71,6 +78,8 @@ extend type Query {
     getEmpireById(empireId: Long!): Empire!
     # [EveryOne]
     getTileById(coord: Coordinate!): Tile!
+    # [EveryOne]
+    getBuildingById(buildingId: Long!): Building!
 }
 
 extend type Self {
