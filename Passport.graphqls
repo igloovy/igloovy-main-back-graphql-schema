@@ -1,0 +1,56 @@
+type Passport{
+    passportId: Long!
+    building: Building!
+    processors:[PassportProcessor!]!
+    processorsAsJson: String!
+    isUseAble: Boolean!
+}
+
+union PassportProcessor =  ActivationPassportProcessor | TimePassportProcessor  | UserPassportProcessor | LogicOrPassportProcessor
+
+
+
+
+extend type Query {
+    getPassportById(passportId: Long!): Passport!
+}
+
+extend type CircleMutation {
+    createPassport(buildingId: Long! processors: [ProcessorInput!]! ) : Passport!
+    updatePassport(passportId: Long!, processors: [ProcessorInput!]! ): Passport!
+    deletePassport(passportId: Long!): Void
+}
+
+extend type Circle {
+    explorePassports(onlyJoinAbles: Boolean! = true ): [Passport!]!
+}
+
+extend type Building {
+    passports: [Passport!]!
+}
+
+
+
+type TimePassportProcessor{
+    cronString: String!
+}
+
+type ActivationPassportProcessor{
+    active: Boolean!
+}
+
+type UserPassportProcessor{
+    whiteRoleIds: [Long!]!
+    whiteUserIds: [Long!]!
+    blackUserIds: [Long!]!
+}
+
+type LogicOrPassportProcessor{
+    anyOf: [PassportProcessor!]!
+}
+
+
+input ProcessorInput{
+    processorName: String!
+    processorAsJson: String!
+}
