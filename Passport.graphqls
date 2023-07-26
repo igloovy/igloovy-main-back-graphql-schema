@@ -1,5 +1,6 @@
 type Passport{
     passportId: Long!
+    createdDate: Date!
     building: Building!
     processors:[PassportProcessor!]!
     processorsAsJson: String!
