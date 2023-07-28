@@ -1,5 +1,7 @@
 type Passport{
     passportId: Long!
+    name: String!
+    description: String!
     createdDate: Date!
     building: Building!
     processors:[PassportProcessor!]!

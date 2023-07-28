@@ -28,6 +28,7 @@ extend type Circle {
 type Building{
     buildingId: Long!
     tile: Tile!
+    name: String!
     overload: String!
 }
 
