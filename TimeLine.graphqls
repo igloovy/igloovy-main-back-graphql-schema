@@ -57,7 +57,7 @@ interface Reactable implements ImmutableUserItem{
     lastModifiedDate: Date
     reactions: [Reactable!]!
     reactionsCount: Int!
-    actualRoot: Post!
+    actualRoot: Reactable!
 }
 
 interface Multipart{
@@ -73,7 +73,7 @@ interface MultipartReactable implements Reactable & Multipart & ImmutableUserIte
     lastModifiedDate: Date
     reactions: [MultipartReactable!]!
     reactionsCount: Int!
-    actualRoot: Post!
+    actualRoot: Reactable!
 
     text: String!
     files: [File!]!

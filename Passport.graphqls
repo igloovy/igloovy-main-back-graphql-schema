@@ -57,3 +57,26 @@ input ProcessorInput{
     processorName: String!
     processorAsJson: String!
 }
+
+
+######
+
+type EventMessage implements MultipartReactable & ImmutableUserItem & Reactable & Multipart{
+    reactableId: Long!
+    createdBy: User!
+    text: String!
+    files: [File!]!
+    createdDate: Date!
+    lastModifiedDate: Date
+    reactions: [Comment!]!
+    reactionsCount: Int!
+    emojis: [Emoji!]!
+    actualRoot: EventMessage!
+    numberOfAllReactions: Int!
+
+    passport: Passport!
+}
+
+extend type Mutation {
+    submitPassport(passportId: Long! subCircleId: Long!): Passport!
+}
