@@ -1,27 +1,28 @@
 type Passport{
     passportId: Long!
-    name: String!
-    description: String!
+    information: PassportInformation!
     createdDate: Date!
     building: Building!
     processors:[PassportProcessor!]!
     processorsAsJson: String!
+}
+
+type PassportInformation{
+    name: String!
+    description: String!
     isUseAble: Boolean!
 }
 
 union PassportProcessor =  ActivationPassportProcessor | TimePassportProcessor  | UserPassportProcessor | LogicOrPassportProcessor
-
-
-
 
 extend type Query {
     getPassportById(passportId: Long!): Passport!
 }
 
 extend type CircleMutation {
-    createPassport(buildingId: Long! processors: [ProcessorInput!]! ) : Passport!
-    updatePassport(passportId: Long!, processors: [ProcessorInput!]! ): Passport!
-    deletePassport(passportId: Long!): Void
+    passportIssuance(buildingId: Long! information: PassportInformationInput! processors: [ProcessorInput!]! ): Passport!
+    passportRenewal(passportId: Long! information: PassportInformationInput! processors: [ProcessorInput!]! ): Passport!
+    passportCancellation(passportId: Long!): CircleMutation
 }
 
 extend type Circle {
@@ -31,8 +32,6 @@ extend type Circle {
 extend type Building {
     passports: [Passport!]!
 }
-
-
 
 type TimePassportProcessor{
     cronString: String!
@@ -58,6 +57,10 @@ input ProcessorInput{
     processorAsJson: String!
 }
 
+input PassportInformationInput{
+    name: String!
+    description: String!
+}
 
 ######
 
@@ -78,5 +81,5 @@ type EventMessage implements MultipartReactable & ImmutableUserItem & Reactable 
 }
 
 extend type Mutation {
-    submitPassport(passportId: Long! subCircleId: Long!): Passport!
+    submitPassportEventMessage(passportId: Long! subCircleId: Long!): EventMessage!
 }
