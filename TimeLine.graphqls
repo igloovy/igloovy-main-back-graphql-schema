@@ -7,7 +7,7 @@ extend type Query{
         subCircleId: Long @optional(narrows: "subCircle")
         searchParam: String = null
         sortBy: ExplorePostSort! = CREATED_DATE_DESCEND
-    ): [Post!]!
+    ): [MultipartReactable!]!
 
     # [ClientAndAbove] given $reactableId returns respective Reactable, throws NotFound
     getReactableById(reactableId: Long!): Reactable!
