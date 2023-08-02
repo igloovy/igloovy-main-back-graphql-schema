@@ -20,13 +20,13 @@ extend type Query {
 }
 
 extend type CircleMutation {
-    passportIssuance(buildingId: Long! information: PassportInformationInput! processors: [ProcessorInput!]! ): Passport!
-    passportRenewal(passportId: Long! information: PassportInformationInput! processors: [ProcessorInput!]! ): Passport!
+    passportIssuance(buildingId: Long! information: PassportInformationInput! processorsAsJson: String! ): Passport!
+    passportRenewal(passportId: Long! information: PassportInformationInput! processorsAsJson: String! ): Passport!
     passportCancellation(passportId: Long!): CircleMutation
 }
 
 extend type Circle {
-    explorePassports(onlyJoinAbles: Boolean! = true ): [Passport!]!
+    explorePassports(onlyJoinAbles: Boolean lastPassportId: Long size: Int!): [Passport!]!
 }
 
 extend type Building {
@@ -49,12 +49,6 @@ type UserPassportProcessor{
 
 type LogicOrPassportProcessor{
     anyOf: [PassportProcessor!]!
-}
-
-
-input ProcessorInput{
-    processorName: String!
-    processorAsJson: String!
 }
 
 input PassportInformationInput{
