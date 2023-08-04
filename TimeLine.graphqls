@@ -121,6 +121,5 @@ type Emoji{
 
 enum ExplorePostSort {
     CREATED_DATE_DESCEND,
-    CREATED_DATE_ASCEND,
     MOST_NUMBER_OF_REACTIONS
 }
