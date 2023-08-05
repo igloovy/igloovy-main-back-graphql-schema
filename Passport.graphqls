@@ -5,6 +5,7 @@ type Passport{
     building: Building!
     processors:[PassportProcessor!]!
     processorsAsJson: String!
+    exploreEventMessages(size: Int! lastPassportId: Long = null): [EventMessage!]!
 }
 
 type PassportInformation{
