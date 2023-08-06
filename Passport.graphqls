@@ -6,12 +6,12 @@ type Passport{
     processors:[PassportProcessor!]!
     processorsAsJson: String!
     anyEventMessageExistFromThisPassport: Boolean!
+    isUseAble: Boolean!
 }
 
 type PassportInformation{
     name: String!
     description: String!
-    isUseAble: Boolean!
 }
 
 union PassportProcessor =  ActivationPassportProcessor | TimePassportProcessor  | UserPassportProcessor | LogicOrPassportProcessor
