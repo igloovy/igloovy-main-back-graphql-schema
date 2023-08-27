@@ -1,0 +1,88 @@
+extend type Mutation {
+
+    # [ClientAndAbove] creates a chat room
+    InitialChatRoom(initialChatRoomInput: InitialChatRoomInput): ChatRoom!
+
+    # [ClientAndAbove]
+    AddUserToChatRoom(chatRoomId: Long! userIds: [Long!]!): ChatRoom!
+
+    # [ClientAndAbove]
+    RemoveUserFromChatRoom(chatRoomId: Long! userIds: [Long!]!): ChatRoom!
+
+    # [ClientAndAbove]
+    PostMessageToChatRoom(chatRoomId: Long! submittable: Submittable): ChatRoom!
+
+    # [ClientAndAbove]
+    EditChatRoomMessage(messageId: Long! submittable: Submittable): ChatRoom!
+
+}
+
+extend type Query {
+
+    # [ClientAndAbove]
+    GetChatRoomById(chatRoomId: Long!): ChatRoom!
+
+    # [ClientAndAbove]
+    GetChatRoomMessageById(messageId: Long!): ChatRoomMessage!
+
+}
+
+extend type Subscription {
+    subscribeMessages: ChatRoomMessage!
+}
+
+input InitialChatRoomInput {
+    name: String!
+    userIds: [Long!] = []
+}
+
+interface ChatRoomMessage implements ImmutableUserItem {
+    messageId: Long!
+    createdBy: User!
+    createdDate: Date!
+}
+
+interface Modifiable {
+    lastModifiedDate: Date
+}
+
+type TextChatRoomMessage implements ChatRoomMessage & ImmutableUserItem & Modifiable {
+    messageId: Long!
+    createdBy: User!
+    createdDate: Date!
+    lastModifiedDate: Date
+
+    #######
+    text: String!
+}
+
+type FileChatRoomMessage implements ChatRoomMessage & ImmutableUserItem {
+    messageId: Long!
+    createdBy: User!
+    createdDate: Date!
+
+    #######
+    files: [File!]!
+}
+
+type TextFileChatRoomMessage implements ChatRoomMessage & ImmutableUserItem & Modifiable {
+    messageId: Long!
+    createdBy: User!
+    createdDate: Date!
+    lastModifiedDate: Date
+
+    #######
+    text: String!
+    files: [File!]!
+}
+
+type ChatRoom {
+    chatRoomId: Long!
+    createdDate: Date!
+    name: String!
+    chatRoomOwner: User!
+    chatRoomUsers: [User!]!
+    exploreMessages(size: Int! lastMessageId: Long = null searchParam: String = null): [ChatRoomMessage!]!
+
+    numberOfUsers: Long!
+}
