@@ -1,34 +1,39 @@
 extend type Mutation {
 
     # [ClientAndAbove] creates a chat room
-    InitialChatRoom(initialChatRoomInput: InitialChatRoomInput): ChatRoom!
+    createChatRoom(initialChatRoomInput: InitialChatRoomInput): ChatRoom!
 
     # [ClientAndAbove]
-    AddUserToChatRoom(chatRoomId: Long! userIds: [Long!]!): ChatRoom!
+    addUserToChatRoom(chatRoomId: Long! userIds: [Long!]!): ChatRoom!
 
     # [ClientAndAbove]
-    RemoveUserFromChatRoom(chatRoomId: Long! userIds: [Long!]!): ChatRoom!
+    removeUserFromChatRoom(chatRoomId: Long! userIds: [Long!]!): ChatRoom!
 
     # [ClientAndAbove]
-    PostMessageToChatRoom(chatRoomId: Long! submittable: Submittable): ChatRoom!
+    postMessageInChatRoom(chatRoomId: Long! submittable: ChatRoomSubmittable): ChatRoomMessage!
 
     # [ClientAndAbove]
-    EditChatRoomMessage(messageId: Long! submittable: Submittable): ChatRoom!
+    editChatRoomMessage(messageId: Long! submittable: ChatRoomSubmittable): ChatRoomMessage!
 
 }
 
 extend type Query {
 
     # [ClientAndAbove]
-    GetChatRoomById(chatRoomId: Long!): ChatRoom!
+    getChatRoomById(chatRoomId: Long!): ChatRoom!
 
     # [ClientAndAbove]
-    GetChatRoomMessageById(messageId: Long!): ChatRoomMessage!
+    getChatRoomMessageById(messageId: Long!): ChatRoomMessage!
 
 }
 
 extend type Subscription {
-    subscribeMessages: ChatRoomMessage!
+    subscribeChatRoomMessage: ChatRoomMessage!
+}
+
+input ChatRoomSubmittable {
+    text: String = null
+    files: [UUID!] = null
 }
 
 input InitialChatRoomInput {
@@ -39,6 +44,7 @@ input InitialChatRoomInput {
 interface ChatRoomMessage implements ImmutableUserItem {
     messageId: Long!
     createdBy: User!
+    chatRoom: ChatRoom!
     createdDate: Date!
 }
 
@@ -49,6 +55,7 @@ interface Modifiable {
 type TextChatRoomMessage implements ChatRoomMessage & ImmutableUserItem & Modifiable {
     messageId: Long!
     createdBy: User!
+    chatRoom: ChatRoom!
     createdDate: Date!
     lastModifiedDate: Date
 
@@ -59,6 +66,7 @@ type TextChatRoomMessage implements ChatRoomMessage & ImmutableUserItem & Modifi
 type FileChatRoomMessage implements ChatRoomMessage & ImmutableUserItem {
     messageId: Long!
     createdBy: User!
+    chatRoom: ChatRoom!
     createdDate: Date!
 
     #######
@@ -68,6 +76,7 @@ type FileChatRoomMessage implements ChatRoomMessage & ImmutableUserItem {
 type TextFileChatRoomMessage implements ChatRoomMessage & ImmutableUserItem & Modifiable {
     messageId: Long!
     createdBy: User!
+    chatRoom: ChatRoom!
     createdDate: Date!
     lastModifiedDate: Date
 
@@ -82,7 +91,7 @@ type ChatRoom {
     name: String!
     chatRoomOwner: User!
     chatRoomUsers: [User!]!
-    exploreMessages(size: Int! lastMessageId: Long = null searchParam: String = null): [ChatRoomMessage!]!
+    exploreChatRoomMessages(size: Int! lastMessageId: Long = null searchParam: String = null): [ChatRoomMessage!]!
 
     numberOfUsers: Long!
 }
