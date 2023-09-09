@@ -1,0 +1,76 @@
+extend type Mutation {
+    # throws UnExpectedAction you are already friend if you are friend
+    sendFriendRequest(userId: Long!): FriendRequest!
+    # UnExpectedAction you are already unFriend if you are unFriend
+    unFriendWithUser(userId: Long!): Void
+}
+
+extend type Query {
+    # Auxiliary method to get handle of FriendRequest for it's method calls
+    getFriendRequestById(friendRequestId: Long!): FriendRequest!
+}
+
+extend type Self {
+    # returns only FriendRequestStatus.WAITING requests
+    openFriendRequests: [FriendRequest!]!
+}
+
+#region exploreFriendsOverloads
+extend interface PublicUserData {
+    # search between your or other users friends
+    exploreFriends(lastId: Long = null, size: Int! = 10, param: String = null): [User!]!
+    # returns your friendship status with this user
+    currentFriendShipStatus: FriendShipStatus!
+}
+extend type CircleUser {
+    # search between your or other users friends
+    exploreFriends(lastId: Long = null, size: Int! = 10, param: String = null): [User!]!
+    # returns your friendship status with this user
+    currentFriendShipStatus: FriendShipStatus!
+}
+extend type User {
+    # search between your or other users friends
+    exploreFriends(lastId: Long = null, size: Int! = 10, param: String = null): [User!]!
+    # returns your friendship status with this user
+    currentFriendShipStatus: FriendShipStatus!
+}
+extend type Self {
+    # search between your or other users friends
+    exploreFriends(lastId: Long = null, size: Int! = 10, param: String = null): [User!]!
+    # returns your friendship status with this user
+    currentFriendShipStatus: FriendShipStatus!
+}
+#endregion
+
+type FriendRequest implements ImmutableUserItem{
+    friendRequestId: Long!
+    createdBy: User!
+    createdDate: Date!
+    subject: User!
+    status: FriendRequestStatus!
+    # ---  methods ---
+    # can only be accepted by subject
+    accept: Void
+    # can be rejected by sender or subject
+    reject: Void
+}
+enum FriendRequestStatus{
+    WAITING,
+    ACCEPTED,
+    REJECTED
+}
+enum FriendShipStatus {
+    NOTHING,
+    FRIEND
+    # more here
+}
+
+# Notification type fired when you receive a FriendRequest - friend requests are not deletable so this notification persist forever
+type FriendRequestNotification implements Notification{
+    notificationId: Long!
+    seen: Boolean!
+    title: String!
+    createdDate: Date!
+    # -- request ---
+    request: FriendRequest!
+}
