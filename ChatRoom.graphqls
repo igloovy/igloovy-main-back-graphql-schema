@@ -31,6 +31,10 @@ extend type Subscription {
     subscribeChatRoomMessage: ChatRoomMessage!
 }
 
+extend type Self {
+    joinedChatRooms: [ChatRoom!]!
+}
+
 input ChatRoomSubmittable {
     text: String = null
     files: [UUID!] = null
