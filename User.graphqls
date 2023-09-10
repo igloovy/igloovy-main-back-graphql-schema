@@ -1,6 +1,8 @@
 extend type Query{
     # [ClientAndAbove]
     self: Self!
+    # [ClientAndAbove]
+    getUserById(userId: Long!): User!
 }
 extend type Mutation {
     # [ClientAndAbove]
