@@ -50,9 +50,9 @@ type FriendRequest implements ImmutableUserItem{
     status: FriendRequestStatus!
     # ---  methods ---
     # can only be accepted by subject
-    accept: Void
+    accept: FriendRequest!
     # can be rejected by sender or subject
-    reject: Void
+    reject: FriendRequest!
 }
 enum FriendRequestStatus{
     WAITING,
