@@ -61,6 +61,7 @@ enum FriendRequestStatus{
 }
 enum FriendShipStatus {
     NOTHING,
+    REQUESTED,
     FRIEND
     # more here
 }
