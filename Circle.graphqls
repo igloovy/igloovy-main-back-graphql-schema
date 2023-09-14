@@ -7,8 +7,12 @@ extend type Query {
 
     # [EveryOne] search and explore on circles. :searchParam is optional to narrow searching, paginate using :lastCircleId (seek loadMore)
     exploreCircles(lastCircleId: Long size: Int! searchParam: String): [Circle!]!
+
     # [ClientAndAbove]
     viewUserInCircle(userId: Long! circleId: Long!): CircleUser!
+
+    # [ClientAndAbove]
+    exploreTrendingCircles(lastId: Long size: Int! = 10): [Circle!]!
 }
 
 extend type Self {
