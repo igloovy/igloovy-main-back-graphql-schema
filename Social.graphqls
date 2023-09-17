@@ -3,6 +3,10 @@ extend type Mutation {
     sendFriendRequest(userId: Long!): FriendRequest!
     # UnExpectedAction you are already unFriend if you are unFriend
     unFriendWithUser(userId: Long!): Void
+    # check state of FriendRequest first - only applicable on WAITING friend requests, only subject can accept
+    acceptFriendRequest(friendRequestId: Long!): FriendRequest!
+    # check state of FriendRequest first - only applicable on WAITING friend requests, only subject OR creator can reject
+    rejectFriendRequest(friendRequestId: Long!): FriendRequest!
 }
 
 extend type Query {
@@ -48,11 +52,6 @@ type FriendRequest implements ImmutableUserItem{
     createdDate: Date!
     subject: User!
     status: FriendRequestStatus!
-    # ---  methods ---
-    # can only be accepted by subject
-    accept: FriendRequest!
-    # can be rejected by sender or subject
-    reject: FriendRequest!
 }
 enum FriendRequestStatus{
     WAITING,
