@@ -72,5 +72,5 @@ type FriendRequestNotification implements Notification{
     title: String!
     createdDate: Date!
     # -- request ---
-    request: FriendRequest!
+    friendRequest: FriendRequest!
 }
