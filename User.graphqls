@@ -51,6 +51,14 @@ type SelfMutation {
     setAvatar(fileId: UUID): SelfMutation!
     setImmersiveAvatar(avatar: Int!): SelfMutation!
 
+    # Apparently this sad API is my last commit in iglooyv,
+    # when i was implementing setBirthDay in couple of lines above here i wouldn't thought i end up here, alas!
+    # dear future developer(s), please forgive me for imperfections that bother your eyes her and there
+    # feel free to reach me out if you had any questions or just wanted to discuss anything
+    # sincerely
+    # Human Ardaki
+    closeMyAccount: SelfMutation!
+
     commit: Self!
 }
 
