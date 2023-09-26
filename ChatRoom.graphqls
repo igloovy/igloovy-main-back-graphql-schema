@@ -25,6 +25,9 @@ extend type Query {
     # [ClientAndAbove]
     getChatRoomMessageById(messageId: Long!): ChatRoomMessage!
 
+    # [ClientAndAbove]
+    lastMessagesOfAllChatRooms: [ChatRoomMessage!]!
+
 }
 
 extend type Subscription {
