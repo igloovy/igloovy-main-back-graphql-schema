@@ -10,10 +10,10 @@ extend type Mutation {
     removeUserFromChatRoom(chatRoomId: Long! userIds: [Long!]!): ChatRoom!
 
     # [ClientAndAbove]
-    postMessageInChatRoom(chatRoomId: Long! submittable: ChatRoomSubmittable): ChatRoomMessage!
+    postMessageInChatRoom(chatRoomId: Long! submittable: ChatRoomSubmittable!): ChatRoomMessage!
 
     # [ClientAndAbove]
-    editChatRoomMessage(messageId: Long! submittable: ChatRoomSubmittable): ChatRoomMessage!
+    editChatRoomMessage(messageId: Long! submittable: ChatRoomSubmittable!): ChatRoomMessage!
 
 }
 
