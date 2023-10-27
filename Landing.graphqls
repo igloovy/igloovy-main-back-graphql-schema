@@ -1,6 +1,6 @@
 extend type Mutation {
     # [EveryOne] subscribe To Email List with given $email returns true if successful, throws BadRequest: 401 already subscribed
-    subscribeToEmailList(email: Email!): Boolean!
+    contactForm(email: Email! fullName: String! description: String!): Boolean!
 
     # [AdminOnly] refreshes the indexes
     invokeMassIndexer: Void
