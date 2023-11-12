@@ -7,18 +7,18 @@ extend type Query {
 
 extend type Self {
     getStripeCustomer: Customer!
-    getSubscriptionById(subscriptionId: String!): Subscription!
-    subscriptions: [Subscription!]!
+    getSubscriptionById(subscriptionId: String!): StripeSubscription!
+    subscriptions: [StripeSubscription!]!
     subscriptionInvoicePreview(subscriptionId: String!): Invoice!
 }
 
 extend type SelfMutation {
     createSubscription(priceId: String!): CreateSubscriptionResult!
-    updateSubscription(newPriceId: String!, subscriptionId: String!): Subscription!
-    cancelSubscription(subscriptionId: String!): Subscription!
+    updateSubscription(newPriceId: String!, subscriptionId: String!): StripeSubscription!
+    cancelSubscription(subscriptionId: String!): StripeSubscription!
 }
 
-type Items {
+interface Items {
     data: [ItemsData!]
     url: String
 }
@@ -58,7 +58,7 @@ type Product {
     url: String
 }
 
-type Subscription {
+type StripeSubscription {
     id: String!
     cancel_at: Long
     canceled_at: Long
@@ -122,7 +122,7 @@ type Invoice {
 }
 
 type CreateSubscriptionResult {
-    subscrip: Subscription
+    subscription: StripeSubscription
     clientSecret: String
 }
 
