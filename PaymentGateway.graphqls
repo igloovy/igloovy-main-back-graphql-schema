@@ -1,7 +1,153 @@
-extend type Mutation {
-    ChargeWalletRequest(amount: Long): PaymentRequest!
+extend type Query {
+    getPrices(size: Long = 10, active: Boolean = true): [Price!]!
+    getPriceById(priceId: String!): Price!
+    getProducts(size: Long = 10, active: Boolean = true): [Product!]!
+    getProductById(productId: String!): Product!
 }
 
-type PaymentRequest{
-    id: String
+extend type Self {
+    getStripeCustomer: Customer!
+    getSubscriptionById(subscriptionId: String!): Subscription!
+    subscriptions: [Subscription!]!
+    subscriptionInvoicePreview(subscriptionId: String!): Invoice!
 }
+
+extend type SelfMutation {
+    createSubscription(priceId: String!): CreateSubscriptionResult!
+    updateSubscription(newPriceId: String!, subscriptionId: String!): Subscription!
+    cancelSubscription(subscriptionId: String!): Subscription!
+}
+
+type Items {
+    data: [ItemsData!]
+    url: String
+}
+
+type Price {
+    id: String!
+    active: Boolean
+    currency: String
+    lookup_key: String
+    nickname: String
+    product: String
+    unit_amount: Long
+    unit_amount_decimal: String
+}
+
+type Customer {
+    id: String!
+    name: String
+    email: String
+    address: String
+    balance: Long
+    created: Long
+    currency: String
+    description: String
+}
+
+type Product {
+    id: String
+    active: Boolean
+    created: Long
+    default_price: String
+    description: String
+    features: [String!]
+    livemode: Boolean
+    name: String
+    updated: Long
+    url: String
+}
+
+type Subscription {
+    id: String!
+    cancel_at: Long
+    canceled_at: Long
+    created: Long!
+    currency: String
+    current_period_end: Long!
+    current_period_start: Long!
+    customer: String
+    days_until_due: Long
+    description: String
+    ended_at: Long
+    items: Items
+    latest_invoice: String
+    livemode: Boolean
+    start_date: Long
+    status: String
+    trial_end: Long
+    client_secret: String
+}
+
+type Invoice {
+    id: String!
+    account_country: String
+    account_name: String
+    amount_due: Long
+    amount_paid: Long
+    amount_remaining: Long
+    amount_shipping: Long
+    application_fee_amount: Long
+    attempt_count: Long
+    attempted: Boolean
+    auto_advance: Boolean
+    billing_reason: String
+    collection_method: String
+    created: Long
+    currency: String
+    customer: String
+    customer_address: String
+    customer_email: String
+    customer_name: String
+    description: String
+    due_date: Long
+    effective_at: Long
+    ending_balance: Long
+    livemode: Boolean,
+    number: Long,
+    paid: Boolean,
+    paid_out_of_band: Boolean,
+    period_end: Long,
+    period_start: Long,
+    post_payment_credit_notes_amount: Long,
+    pre_payment_credit_notes_amount: Long,
+    starting_balance: Long,
+    status: String,
+    subscription: String,
+    subtotal: Long,
+    subtotal_excluding_tax: Long,
+    total: Long,
+    total_excluding_tax: Long,
+    webhooks_delivered_at: String
+}
+
+type CreateSubscriptionResult {
+    subscrip: Subscription
+    clientSecret: String
+}
+
+type SubscriptionItem {
+    id: String
+    created: Long
+    price: Price
+    subscription: String
+}
+
+type InvoiceItem {
+    id: String
+    amount: Long
+    amount_excluding_tax: Long
+    currency: String
+    description: String
+    discountable: Boolean
+    invoice_item: String
+    livemode: Boolean
+    price: Price
+    proration: Boolean
+    quantity: Long
+    subscription: String
+    unit_amount_excluding_tax: String
+    lines: Items!
+}
+
+union ItemsData = SubscriptionItem | InvoiceItem
