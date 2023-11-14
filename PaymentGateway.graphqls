@@ -25,13 +25,13 @@ interface Items {
 
 type Price {
     id: String!
-    active: Boolean
+    active: Boolean!
     currency: String
-    lookup_key: String
+    lookupKey: String
     nickname: String
     product: String
-    unit_amount: Long
-    unit_amount_decimal: String
+    unitAmount: Long!
+    unitAmountDecimal: String!
 }
 
 type Customer {
@@ -49,7 +49,7 @@ type Product {
     id: String
     active: Boolean
     created: Long
-    default_price: String
+    defaultPrice: String
     description: String
     features: [String!]
     livemode: Boolean
@@ -60,65 +60,65 @@ type Product {
 
 type StripeSubscription {
     id: String!
-    cancel_at: Long
-    canceled_at: Long
+    cancelAt: Long
+    canceledAt: Long
     created: Long!
     currency: String
-    current_period_end: Long!
-    current_period_start: Long!
+    currentPeriodEnd: Long!
+    currentPeriodStart: Long!
     customer: String
-    days_until_due: Long
+    daysUntilDue: Long
     description: String
-    ended_at: Long
+    endedAt: Long
     items: Items
-    latest_invoice: String
+    latestInvoice: String
     livemode: Boolean
-    start_date: Long
+    startDate: Long
     status: String
-    trial_end: Long
-    client_secret: String
+    trialEnd: Long
+    clientSecret: String
 }
 
 type Invoice {
     id: String!
-    account_country: String
-    account_name: String
-    amount_due: Long
-    amount_paid: Long
-    amount_remaining: Long
-    amount_shipping: Long
-    application_fee_amount: Long
-    attempt_count: Long
+    accountCountry: String
+    accountName: String
+    amountDue: Long
+    amountPaid: Long
+    amountRemaining: Long
+    amountShipping: Long
+    applicationFeeAmount: Long
+    attemptCount: Long
     attempted: Boolean
-    auto_advance: Boolean
-    billing_reason: String
-    collection_method: String
+    autoAdvance: Boolean
+    billingReason: String
+    collectionMethod: String
     created: Long
     currency: String
     customer: String
-    customer_address: String
-    customer_email: String
-    customer_name: String
+    customerAddress: String
+    customerEmail: String
+    customerName: String
     description: String
-    due_date: Long
-    effective_at: Long
-    ending_balance: Long
+    dueDate: Long
+    effectiveAt: Long
+    endingBalance: Long
     livemode: Boolean,
     number: Long,
     paid: Boolean,
-    paid_out_of_band: Boolean,
-    period_end: Long,
-    period_start: Long,
-    post_payment_credit_notes_amount: Long,
-    pre_payment_credit_notes_amount: Long,
-    starting_balance: Long,
+    paidOutOfBand: Boolean,
+    periodEnd: Long,
+    periodStart: Long,
+    postPaymentCreditNotesAmount: Long,
+    prePaymentCreditNotesAmount: Long,
+    startingBalance: Long,
     status: String,
     subscription: String,
     subtotal: Long,
-    subtotal_excluding_tax: Long,
+    subtotalExcludingTax: Long,
     total: Long,
-    total_excluding_tax: Long,
-    webhooks_delivered_at: String
+    totalExcludingTax: Long,
+    webhooksDeliveredAt: String
 }
 
 type CreateSubscriptionResult {
@@ -136,17 +136,17 @@ type SubscriptionItem {
 type InvoiceItem {
     id: String
     amount: Long
-    amount_excluding_tax: Long
+    amountExcludingTax: Long
     currency: String
     description: String
     discountable: Boolean
-    invoice_item: String
+    invoiceItem: String
     livemode: Boolean
     price: Price
     proration: Boolean
     quantity: Long
     subscription: String
-    unit_amount_excluding_tax: String
+    unitAmountExcludingTax: String
     lines: Items!
 }
 
