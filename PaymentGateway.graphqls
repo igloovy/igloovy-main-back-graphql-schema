@@ -13,8 +13,8 @@ extend type Self {
 }
 
 extend type SelfMutation {
-    createSubscription(priceId: String!, priceQuantity: Long = 1): CreateSubscriptionResult!
-    updateSubscription(newPriceId: String!, newPriceQuantity: Long = 1, subscriptionId: String!): StripeSubscription!
+    createSubscription(priceId: String!, priceQuantity: Long!): CreateSubscriptionResult!
+    updateSubscription(newPriceId: String!, newPriceQuantity: Long!, subscriptionId: String!): StripeSubscription!
     cancelSubscription(subscriptionId: String!): StripeSubscription!
 }
 
