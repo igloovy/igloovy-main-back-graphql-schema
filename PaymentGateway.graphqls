@@ -122,8 +122,9 @@ type Invoice {
 }
 
 type CreateSubscriptionResult {
-    subscription: StripeSubscription
-    clientSecret: String
+    subscription: StripeSubscription!
+    clientSecret: String!
+    sessionId: String!
 }
 
 type SubscriptionItem {
