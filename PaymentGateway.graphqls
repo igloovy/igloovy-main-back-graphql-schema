@@ -13,6 +13,8 @@ extend type Self {
 }
 
 extend type SelfMutation {
+    createSession(priceLookUpKey: String, priceId: String, priceQuantity: Long): Session!
+
     createSubscription(priceId: String!, priceQuantity: Long!): CreateSubscriptionResult!
     updateSubscription(newPriceId: String!, newPriceQuantity: Long!, subscriptionId: String!): StripeSubscription!
     cancelSubscription(subscriptionId: String!): StripeSubscription!
@@ -149,6 +151,22 @@ type InvoiceItem {
     subscription: String
     unitAmountExcludingTax: String
     lines: Items!
+}
+
+type Session
+{
+    id: String!,
+    amountSubtotal: Long,
+    amountTotal: Long,
+    successUrl: String,
+    cancelUrl: String,
+    created: Long,
+    currency: String,
+    expiresAt: Long,
+    livemode: Boolean,
+    paymentStatus: String,
+    status: String,
+    url: String
 }
 
 union ItemsData = SubscriptionItem | InvoiceItem
