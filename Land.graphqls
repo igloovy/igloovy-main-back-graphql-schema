@@ -12,7 +12,7 @@ type Empire implements ImmutableUserItem{
     empireId: Long!
     createdBy: User!
     createdDate: Date!
-    tiles: [Tile!]!
+    tiles: [Tile!]
     buildings: [Building!]!
     circle: Circle!
     information: CircleInformation!
@@ -27,7 +27,7 @@ extend type Circle {
 
 type Building{
     buildingId: Long!
-    tile: Tile!
+    tile: Tile
     name: String!
     overload: String!
 }
@@ -59,7 +59,7 @@ extend type Mutation {
     # [AdminOnly]
     generateRings(number: Int!): Void
     # [ClientAndAbove] creates new empire
-    establishEmpire(circleInformation: CircleInformationInput!, tiles: [Coordinate!]!): Empire!
+    establishEmpire(circleInformation: CircleInformationInput!, tiles: [Coordinate!]): Empire!
     # [ClientAndAbove] only owner of the empire
     updateEmpireTerritory(empireId: Long!, tiles: [Coordinate!]!): Empire!
 
