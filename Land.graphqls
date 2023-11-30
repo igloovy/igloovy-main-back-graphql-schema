@@ -67,6 +67,7 @@ extend type Mutation {
     updateTileOverload(tileId: Coordinate! overload: String!): Tile!
     updateBuildingOverload(buildingId: Long! overload: String!): Building!
     createBuildingInTile(tileId: Coordinate! name: String! overload: String!): Building!
+    createBuildingInEmpire(empireId: Long! name: String! overload: String!): Building!
     removeBuilding(buildingId: Long!): Void
 }
 
