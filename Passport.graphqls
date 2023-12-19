@@ -6,6 +6,7 @@ type Passport{
     processors:[PassportProcessor!]!
     processorsAsJson: String!
     anyEventMessageExistFromThisPassport: Boolean!
+    explorePassportMembers: [User!]!
     isUseAble: Boolean!
 }
 
@@ -21,8 +22,8 @@ extend type Query {
 }
 
 extend type CircleMutation {
-    passportIssuance(buildingId: Long! information: PassportInformationInput! processorsAsJson: String! ): Passport!
-    passportRenewal(passportId: Long! information: PassportInformationInput! processorsAsJson: String! ): Passport!
+    passportIssuance(buildingId: Long! information: PassportInformationInput! processorsAsJson: String! price: Long): Passport!
+    passportRenewal(passportId: Long! information: PassportInformationInput! processorsAsJson: String! price: Long): Passport!
     passportCancellation(passportId: Long!): CircleMutation
 }
 
@@ -32,6 +33,10 @@ extend type Circle {
 
 extend type Building {
     passports: [Passport!]!
+}
+
+extend type Self {
+    passportMemberships: [Passport!]!
 }
 
 type TimePassportProcessor{
@@ -77,4 +82,9 @@ type EventMessage implements MultipartReactable & ImmutableUserItem & Reactable 
 
 extend type Mutation {
     submitPassportEventMessage(passportId: Long! subCircleId: Long!): EventMessage!
+
+    #[ClientAndAbove] returns Passport if price is free/zero otherwise returns a Payment Session
+    requestPassportMembership(passportId: Long!): PassportMembershipResponse!
 }
+
+union PassportMembershipResponse = Passport | Session
