@@ -10,6 +10,11 @@ type Passport{
     isUseAble: Boolean!
 }
 
+type PassportMutation {
+    grantMembership(userIds: [Long!]!): PassportMutation!
+    membershipRevocation(userIds: [Long!]!): PassportMutation!
+}
+
 type PassportInformation{
     name: String!
     description: String!
