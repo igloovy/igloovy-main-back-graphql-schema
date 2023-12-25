@@ -2,11 +2,12 @@ type Passport{
     passportId: Long!
     information: PassportInformation!
     createdDate: Date!
+    price: Long!
     building: Building!
     processors:[PassportProcessor!]!
     processorsAsJson: String!
     anyEventMessageExistFromThisPassport: Boolean!
-    explorePassportMembers: [User!]!
+    explorePassportMembers(passportId: Long! lastMemberId: Long = null size: Int!): [User!]!
     isUseAble: Boolean!
 }
 
