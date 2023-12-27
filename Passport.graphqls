@@ -25,6 +25,8 @@ union PassportProcessor =  ActivationPassportProcessor | TimePassportProcessor  
 
 extend type Query {
     getPassportById(passportId: Long!): Passport!
+
+    isPassportMember(passportId: Long!): Boolean!
 }
 
 extend type CircleMutation {
