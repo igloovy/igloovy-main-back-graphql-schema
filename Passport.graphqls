@@ -2,11 +2,18 @@ type Passport{
     passportId: Long!
     information: PassportInformation!
     createdDate: Date!
+    price: Long!
     building: Building!
     processors:[PassportProcessor!]!
     processorsAsJson: String!
     anyEventMessageExistFromThisPassport: Boolean!
+    explorePassportMembers(passportId: Long! lastMemberId: Long = null size: Int!): [User!]!
     isUseAble: Boolean!
+}
+
+type PassportMutation {
+    grantMembership(userIds: [Long!]!): PassportMutation!
+    membershipRevocation(userIds: [Long!]!): PassportMutation!
 }
 
 type PassportInformation{
@@ -18,11 +25,13 @@ union PassportProcessor =  ActivationPassportProcessor | TimePassportProcessor  
 
 extend type Query {
     getPassportById(passportId: Long!): Passport!
+
+    isPassportMember(passportId: Long!): Boolean!
 }
 
 extend type CircleMutation {
-    passportIssuance(buildingId: Long! information: PassportInformationInput! processorsAsJson: String! ): Passport!
-    passportRenewal(passportId: Long! information: PassportInformationInput! processorsAsJson: String! ): Passport!
+    passportIssuance(buildingId: Long! information: PassportInformationInput! processorsAsJson: String! price: Long): Passport!
+    passportRenewal(passportId: Long! information: PassportInformationInput! processorsAsJson: String! price: Long): Passport!
     passportCancellation(passportId: Long!): CircleMutation
 }
 
@@ -32,6 +41,10 @@ extend type Circle {
 
 extend type Building {
     passports: [Passport!]!
+}
+
+extend type Self {
+    passportMemberships: [Passport!]!
 }
 
 type TimePassportProcessor{
@@ -77,4 +90,9 @@ type EventMessage implements MultipartReactable & ImmutableUserItem & Reactable 
 
 extend type Mutation {
     submitPassportEventMessage(passportId: Long! subCircleId: Long!): EventMessage!
+
+    #[ClientAndAbove] returns Passport if price is free/zero otherwise returns a Payment Session
+    requestPassportMembership(passportId: Long!): PassportMembershipResponse!
 }
+
+union PassportMembershipResponse = Passport | Session
