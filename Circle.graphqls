@@ -97,6 +97,8 @@ type CircleMutation {
     commit: Circle!
     # [ClientAndAbove] delete the circle entirely
     delete: Void
+    # [ClientAndAbove] set archive status of the server the circle
+    archive(status: Boolean): Void
     # [ClientAndAbove] leave circle
     leaveCircle: Void
 }
