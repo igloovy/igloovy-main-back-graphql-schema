@@ -108,6 +108,8 @@ type SubCircleMutation{
     changeSubCircleName(subCircleNewName: String!): SubCircleMutation!
     # [ClientAndAbove] delete subCircle by id
     deleteSubCircle: Void
+    # [ClientAndAbove] archive subCircle by id
+    archiveSubCircle(status: Boolean): Void
     # [ClientAndAbove] a terminal operation to get required data after one (or multiple chain) operation(s)
     commit: SubCircle!
 }
