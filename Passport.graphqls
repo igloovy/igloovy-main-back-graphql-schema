@@ -7,7 +7,7 @@ type Passport{
     processors:[PassportProcessor!]!
     processorsAsJson: String!
     anyEventMessageExistFromThisPassport: Boolean!
-    explorePassportMembers(passportId: Long! lastMemberId: Long = null size: Int!): [User!]!
+    exploreMembers(lastMemberId: Long = null size: Int!): [User!]!
     isUseAble: Boolean!
 }
 
