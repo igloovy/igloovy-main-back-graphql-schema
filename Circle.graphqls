@@ -38,16 +38,17 @@ type Circle{
     subCircles: [SubCircle!]!
     defaultSubCircle: SubCircle!
     everyOneRole: Role!
+    archived: Boolean!
 
     # --- calculated ---
     numberOfUsers: Long!
-
 }
 
 type SubCircle{
     subCircleId: Long!
     subCircleName: String!
     parentCircle: Circle!
+    archived: Boolean!
 }
 
 type CircleInformation{
@@ -98,7 +99,7 @@ type CircleMutation {
     # [ClientAndAbove] delete the circle entirely
     delete: Void
     # [ClientAndAbove] set archive status of the server the circle
-    archive(status: Boolean): Void
+    archive(status: Boolean!): Void
     # [ClientAndAbove] leave circle
     leaveCircle: Void
 }
@@ -109,7 +110,7 @@ type SubCircleMutation{
     # [ClientAndAbove] delete subCircle by id
     deleteSubCircle: Void
     # [ClientAndAbove] archive subCircle by id
-    archiveSubCircle(status: Boolean): Void
+    archiveSubCircle(status: Boolean!): Void
     # [ClientAndAbove] a terminal operation to get required data after one (or multiple chain) operation(s)
     commit: SubCircle!
 }
