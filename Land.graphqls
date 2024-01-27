@@ -83,12 +83,14 @@ extend type Query {
     # [EveryOne]
     getBuildingById(buildingId: Long!): Building!
 
+
+    getBuildingTypeByMapType(mapType: String!): BuildingType!
     getAllBuildingTypes: [BuildingType!]!
 }
 
 type BuildingType {
-    buildingTypeId: Long
-    mapType: String
+    buildingTypeId: Long!
+    mapType: String!
 }
 
 extend type Self {
