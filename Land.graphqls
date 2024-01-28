@@ -59,7 +59,7 @@ extend type Mutation {
     # [AdminOnly]
     generateRings(number: Int!): Void
     # [ClientAndAbove] creates new empire
-    establishEmpire(circleInformation: CircleInformationInput!, tiles: [Coordinate!], mapType: String!): Empire!
+    establishEmpire(circleInformation: CircleInformationInput!, tiles: [Coordinate!]): Empire!
     # [ClientAndAbove] only owner of the empire
     updateEmpireTerritory(empireId: Long!, tiles: [Coordinate!]!): Empire!
 
@@ -83,8 +83,8 @@ extend type Query {
     # [EveryOne]
     getBuildingById(buildingId: Long!): Building!
 
-
     getBuildingTypeByMapType(mapType: String!): BuildingType!
+
     getAllBuildingTypes: [BuildingType!]!
 }
 
