@@ -30,7 +30,7 @@ extend type Query {
 }
 
 extend type CircleMutation {
-    passportIssuance(buildingId: Long! information: PassportInformationInput! processorsAsJson: String! mapType: String! price: Long): Passport!
+    passportIssuance(information: PassportInformationInput! processorsAsJson: String! mapType: String! price: Long): Passport!
     passportRenewal(passportId: Long! information: PassportInformationInput! processorsAsJson: String! price: Long): Passport!
     passportCancellation(passportId: Long!): CircleMutation
 }

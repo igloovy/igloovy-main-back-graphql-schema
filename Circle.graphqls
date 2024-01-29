@@ -13,6 +13,8 @@ extend type Query {
 
     # [ClientAndAbove]
     exploreTrendingCircles(lastId: Long size: Int! = 10): [Circle!]!
+
+    isUserAssociatedWithCircle(circleId: Long!): Boolean!
 }
 
 extend type Self {
