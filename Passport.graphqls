@@ -9,6 +9,9 @@ type Passport{
     anyEventMessageExistFromThisPassport: Boolean!
     exploreMembers(lastMemberId: Long = null size: Int!): [User!]!
     isUseAble: Boolean!
+
+    # --- calculated ---
+    numberOfMembers: Long!
 }
 
 type PassportMutation {
