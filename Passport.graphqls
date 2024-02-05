@@ -7,11 +7,26 @@ type Passport{
     processors:[PassportProcessor!]!
     processorsAsJson: String!
     anyEventMessageExistFromThisPassport: Boolean!
-    exploreMembers(lastMemberId: Long = null size: Int!): [User!]!
+    exploreMembers(lastMemberId: Long = null size: Int!): [PassportUser!]!
     isUseAble: Boolean!
 
     # --- calculated ---
     numberOfMembers: Long!
+}
+
+type PassportUser implements PublicUserData{
+    userId: Long!
+    displayName: String!
+    createdDate: Date!
+    userTag: String!
+    avatarPicture: File
+    aboutMe: String
+    immersiveAvatar: Int!
+    exploreFriends(lastId: Long = null, size: Int! = 10, param: String = null): [User!]!
+    currentFriendShipStatus: FriendShipStatus!
+    avatar: Avatar!
+    # ---- extra ----
+    email: String!
 }
 
 type PassportMutation {
