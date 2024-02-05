@@ -1,0 +1,19 @@
+extend type Self {
+    getTransactionById(transactionId: Long!): Transaction!
+    exploreTransactions(lastTransactionId: Long ,size: Int!): [Transaction!]!
+}
+
+type Transaction{
+    invoice: String!,
+    amount: Long!,
+    details: String!,
+    transactionId: Long!
+    createdDate: Date!
+    status: TransactionStatus!
+}
+
+enum TransactionStatus{
+    Pending,
+    Successful,
+    Unsuccessful
+}
